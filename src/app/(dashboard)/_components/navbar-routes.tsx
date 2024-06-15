@@ -18,14 +18,14 @@ export default function NavbarRoutes() {
       {isSearchPage && <div className="hidden md:block">search</div>}
       <div className="flex items-center gap-x-2 ml-auto">
         {isTeacherPage || isCoursesPage ? (
-          <Link href={"/dash"}>
+          <Link href={"/"}>
             <Button variant={"ghost"} size="sm">
               <LogOut className="h-4 w-4 mr-2" />
               Exit
             </Button>
           </Link>
         ) : (
-          <Link href={"/teacher/course"}>
+          <Link href={"/teacher/courses"}>
             <Button variant={"ghost"} size="sm">
               Teacher mode
             </Button>
