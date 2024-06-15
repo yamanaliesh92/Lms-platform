@@ -10,7 +10,6 @@ export default function DashboardLayout({
     <div className="h-full">
       <div className="w-56 fixed md:flex h-full flex-col inset-y-0 z-50">
         <Sidebar />
-        hello
       </div>
       <main className="md:pl-56 h-full pt-[80px]">{children}</main>
     </div>
