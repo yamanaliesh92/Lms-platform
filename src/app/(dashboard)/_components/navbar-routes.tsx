@@ -4,16 +4,10 @@ import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import React from "react";
-import { auth } from "@clerk/nextjs/server";
+
 import { UserButton } from "@clerk/nextjs";
 
 export default function NavbarRoutes() {
-  const { userId } = auth();
-
-  if (!userId) {
-    return redirect("/");
-  }
-
   const pathName = usePathname();
 
   const isTeacherPage = pathName.startsWith("/teacher");
