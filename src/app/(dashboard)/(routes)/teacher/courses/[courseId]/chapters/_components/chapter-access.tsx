@@ -7,6 +7,7 @@ import {
   FormMessage,
   Form,
   FormItem,
+  FormDescription,
 } from "@/components/ui/form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,8 +20,6 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import { Chapter } from "@prisma/client";
-import Editor from "@/components/ui/editior";
-import Preview from "@/components/Preview";
 
 interface IProps {
   initialData: Chapter;
@@ -30,10 +29,10 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  description: z.string().min(1),
+  isFree: z.boolean().default(false),
 });
 
-export default function ChapterDescriptionForm({
+export default function ChapterAccessFormForm({
   initialData,
   courseId,
   chapterId,
@@ -43,10 +42,10 @@ export default function ChapterDescriptionForm({
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description: initialData?.description || "",
+      isFree: !!initialData.isFree,
     },
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const toggle = () => {
@@ -57,7 +56,7 @@ export default function ChapterDescriptionForm({
     console.log(values);
 
     try {
-      const res = await axios.patch(
+      await axios.patch(
         `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`,
         values
       );
@@ -71,29 +70,30 @@ export default function ChapterDescriptionForm({
   return (
     <div className="mt-4 border bg-slate-100 rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
-        Chapter Description
+        Chapter access
         <Button onClick={toggle} variant={"ghost"}>
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Description
+              Edit access
             </>
           )}
         </Button>
       </div>
       {!isEditing && (
-        <div
+        <p
           className={`text-sm mt-2 ${
             !initialData && "text-slate-500 italic"
           }  `}
         >
-          {!initialData.description && "No description"}
-          {initialData.description && (
-            <Preview value={initialData.description} />
+          {initialData.isFree ? (
+            <>this chapter is free for preview</>
+          ) : (
+            <>this chapter is not free</>
           )}
-        </div>
+        </p>
       )}
       {isEditing && (
         <Form {...from}>
@@ -102,13 +102,22 @@ export default function ChapterDescriptionForm({
             className="mt-4 space-y-4"
           >
             <FormField
-              name="description"
+              name="isFree"
               control={from.control}
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
-                    <Editor {...field} />
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
                   </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormDescription>
+                      Check this box if you want to make this chapter free for
+                      preview
+                    </FormDescription>
+                  </div>
 
                   <FormMessage />
                 </FormItem>
