@@ -35,11 +35,15 @@ export default function page() {
 
   const { isSubmitting, isValid } = from.formState;
 
+  const x = () => {
+    router.push(`/teacher/courses/${1}`);
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
     try {
       const res = await axios.post("http://localhost:3000/api/courses", values);
-      router.push(`${res.data.id}`);
+      router.push(`/teacher/courses/${res.data.id}`);
       toast.success("created success");
     } catch (err) {
       toast.error("some thing went wrong");
@@ -53,6 +57,7 @@ export default function page() {
         <p className="text-sm text-slate-600">
           what would you like to name your course ? Dont worry{" "}
         </p>
+
         <Form {...from}>
           <form
             onSubmit={from.handleSubmit(onSubmit)}
