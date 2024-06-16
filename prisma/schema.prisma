@@ -28,7 +28,28 @@ model Course{
   attachments Attachment[]
   imgUrl String?
 
-
 @@index([categoryId])
 
+}
+
+model Category{
+  id String @id @default(uuid())
+  name String @unique
+  courses Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+
+model  Attachment{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  url String
+  courseId String
+  course Course @relation(fields: [courseId],references: [id],onDelete:Cascade)
+  @@index([courseId])
 }
