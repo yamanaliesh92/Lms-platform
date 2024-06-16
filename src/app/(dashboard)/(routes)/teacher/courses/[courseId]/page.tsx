@@ -16,6 +16,8 @@ import DescriptionForm from "./_components/description-form";
 
 import ImageForm from "./_components/image-form";
 import PriceForm from "./_components/price-form";
+import { IconBadge } from "@/app/(dashboard)/_components/icon-badge";
+import FormTitle from "./_components/title-form";
 
 interface Ix {
   params: {
@@ -68,12 +70,6 @@ export default async function page({ params }: Ix) {
               Complete all fields {completionFields}
             </span>
           </div>
-
-          <Actions
-            disable={!isCompleted}
-            courseId={params.courseId}
-            isPublished={course.isPublished}
-          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div>
