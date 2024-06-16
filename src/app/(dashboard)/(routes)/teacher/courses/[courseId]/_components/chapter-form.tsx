@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 
 import { Input } from "@/components/ui/input";
 import { Chapter, Course } from "@prisma/client";
+import ChaptersList from "./chapter-list";
 
 interface IProps {
   initialData: Course & { chapters: Chapter[] };
