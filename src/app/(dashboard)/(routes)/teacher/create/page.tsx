@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
+  title: z.string().min(2, { message: "Title is required" }),
 });
 
 export default function page() {
@@ -32,7 +32,7 @@ export default function page() {
       title: "",
     },
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
