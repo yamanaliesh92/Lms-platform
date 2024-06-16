@@ -34,6 +34,6 @@ export async function PUT(
   } catch (err) {
     console.log("[course]", err);
 
-    return NextResponse.json("soem thing wmetn", { status: 500 });
+    return NextResponse.json("something went wrong", { status: 500 });
   }
 }
