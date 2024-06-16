@@ -11,7 +11,7 @@ export default function DashboardLayout({
   return (
     <div className="h-full">
       <div className="h-[80px] md:pl-56 fixed inset-y-0 z-50 w-full">
-        <Navbar />d
+        <Navbar />
       </div>
       <div className="w-56 fixed hidden md:flex h-full flex-col inset-y-0 z-50">
         <Sidebar />

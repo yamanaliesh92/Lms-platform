@@ -10,7 +10,7 @@ const guestRoute = [
 ];
 
 const teacherRoute = [
-  { href: "/teacher/course", icon: List, label: "Courses" },
+  { href: "/teacher/courses", icon: List, label: "Courses" },
   { href: "/teacher/analytics", icon: BarChart, label: "Analytics" },
 ];
 
