@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
+import formatPrice from "@/lib/format";
 
 interface IProps {
   initialData: Course;
