@@ -6,12 +6,14 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 
 
 model Course{
@@ -27,32 +29,13 @@ model Course{
   category Category? @relation(fields: [categoryId],references: [id])
   attachments Attachment[]
   imgUrl String?
+  chapters Chapter[]
+  purchases Purchase[]
 
 @@index([categoryId])
 
 }
 
-model Category{
-  id String @id @default(uuid())
-  name String @unique
-  courses Course[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-
-
-
-model  Attachment{
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name String
-  url String
-  courseId String
-  course Course @relation(fields: [courseId],references: [id],onDelete:Cascade)
-  @@index([courseId])
-}
 
 model Chapter{
   id String @id @default(uuid())
@@ -71,13 +54,6 @@ model Chapter{
   @@index([courseId])
 }
 
-model StripeCustomer{
-  id String @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId String @unique
-  stripeCustomerId String @unique
-}
 
 model Purchase{
   id String @id @default(uuid())
@@ -87,10 +63,20 @@ model Purchase{
   courseId String
   course Course @relation(fields: [courseId],references: [id],onDelete: Cascade)
   @@index([courseId])
-  
+
   @@unique([userId,courseId])
 }
 
+
+
+
+model StripeCustomer{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId String @unique
+  stripeCustomerId String @unique
+}
 
 
 model UserProgress{
@@ -105,4 +91,31 @@ model UserProgress{
     @@index([chapterId,userId])
     @@unique([userId,chapterId])
 
+}
+
+model MuxData{
+    id String @id @default(uuid())
+    chapterId String @unique
+    assetId String
+    playbackId String?
+    chapter Chapter @relation(fields: [chapterId],references: [id],onDelete:Cascade)
+}
+
+model Category{
+  id String @id @default(uuid())
+  name String @unique
+  courses Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model  Attachment{
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name String
+  url String
+  courseId String
+  course Course @relation(fields: [courseId],references: [id],onDelete:Cascade)
+  @@index([courseId])
 }
