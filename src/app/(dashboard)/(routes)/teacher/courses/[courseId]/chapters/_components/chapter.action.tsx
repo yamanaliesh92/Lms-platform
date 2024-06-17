@@ -31,7 +31,7 @@ export default function ChapterActions({
       );
       toast.success("Chapter deleted");
       router.refresh();
-      router.push(`/dash/teacher/course/${courseId}`);
+      router.push(`/teacher/course/${courseId}`);
     } catch {
       toast.error("something went wrong");
     } finally {

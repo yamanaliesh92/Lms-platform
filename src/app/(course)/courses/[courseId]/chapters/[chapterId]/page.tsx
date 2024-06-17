@@ -1,22 +1,25 @@
-import { Banner } from "@/app/dash/_components/banner";
-import Preview from "@/components/preview";
-import { Separator } from "@/components/ui/separator";
 import { File } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
-import { getChapter } from "../../../../../../../actions/get-chapter";
+import { auth } from "@clerk/nextjs/server";
 import CourseEnrollButton from "./_components/course-enroll-butoon";
 import CourseProgressButton from "./_components/course-progress-button";
 import VideoPlayer from "./_components/video-player";
+import { Banner } from "@/app/(dashboard)/_components/banner";
+import { Separator } from "@radix-ui/react-dropdown-menu";
+import Preview from "@/components/Preview";
+import { getChapter } from "../../../../../../../action/get-chapter";
 
 export default async function page({
   params,
 }: {
   params: { chapterId: string; courseId: string };
 }) {
-  // const {userId}=aut()
-  // if(!user){ret redirect("")}
-  const userId = "1";
+  const { userId } = auth();
+  if (!userId) {
+    return redirect("/");
+  }
+
   const {
     chapter,
     course,

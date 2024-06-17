@@ -45,7 +45,7 @@ export default async function page({
         <div className="flex items-center justify-between">
           <div className="w-full">
             <Link
-              href={`/dash/teacher/course/${params.courseId}`}
+              href={`/teacher/course/${params.courseId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2 " />

@@ -44,7 +44,7 @@ export default async function page({ params }: Ix) {
     },
   });
   if (!course) {
-    redirect("/dash");
+    redirect("/");
   }
   const requiredFields = [
     course.title,
