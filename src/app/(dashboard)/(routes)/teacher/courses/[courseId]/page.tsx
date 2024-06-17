@@ -8,7 +8,7 @@ import {
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import React from "react";
-
+import Actions from "./_components/action";
 import AttachmentForm from "./_components/attachment-form";
 import CategoryForm from "./_components/category-form";
 import ChapterForm from "./_components/chapter-form";
@@ -16,8 +16,6 @@ import DescriptionForm from "./_components/description-form";
 
 import ImageForm from "./_components/image-form";
 import PriceForm from "./_components/price-form";
-import { IconBadge } from "@/app/(dashboard)/_components/icon-badge";
-import FormTitle from "./_components/title-form";
 
 interface Ix {
   params: {
@@ -61,6 +59,10 @@ export default async function page({ params }: Ix) {
   const isCompleted = requiredFields.every(Boolean);
   return (
     <>
+      {!isCompleted ||
+        (!course.isPublished && (
+          <Banner label="this course is not publish ,It will not be visible to the student" />
+        ))}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
@@ -70,6 +72,12 @@ export default async function page({ params }: Ix) {
               Complete all fields {completionFields}
             </span>
           </div>
+          {/* add action to publish the course */}
+          <Actions
+            disable={!isCompleted}
+            courseId={params.courseId}
+            isPublished={course.isPublished}
+          />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           <div>
