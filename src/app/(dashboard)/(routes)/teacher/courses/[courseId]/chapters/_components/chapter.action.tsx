@@ -1,5 +1,6 @@
 "use client";
 
+import ConfirmModal from "@/components/modals/confrim-modals";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -13,8 +14,6 @@ interface IChapterActionProps {
   chapterId: string;
   isPublished: boolean;
 }
-
-// router.refresh() to refresh server side component
 
 export default function ChapterActions({
   disable,
