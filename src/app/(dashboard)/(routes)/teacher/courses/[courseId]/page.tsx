@@ -16,6 +16,9 @@ import DescriptionForm from "./_components/description-form";
 
 import ImageForm from "./_components/image-form";
 import PriceForm from "./_components/price-form";
+import { IconBadge } from "@/app/(dashboard)/_components/icon-badge";
+import FormTitle from "./_components/title-form";
+import { Banner } from "@/app/(dashboard)/_components/banner";
 
 interface Ix {
   params: {
@@ -72,7 +75,7 @@ export default async function page({ params }: Ix) {
               Complete all fields {completionFields}
             </span>
           </div>
-          {/* add action to publish the course */}
+
           <Actions
             disable={!isCompleted}
             courseId={params.courseId}
