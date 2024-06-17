@@ -3,13 +3,14 @@ import { auth } from "@clerk/nextjs/server";
 import Chart from "./_components/chart";
 import DataCard from "./_components/data-card";
 import { redirect } from "next/navigation";
+import { getAnalytics } from "../../../../../../action/getAnalytics";
 
 export default async function page() {
   const { userId } = auth();
   if (!userId) {
     return redirect("/");
   }
-  const userId = "1";
+
   const { data, totalRevenue, totalSales } = await getAnalytics(userId);
 
   const newLocal = "Total Sales";
