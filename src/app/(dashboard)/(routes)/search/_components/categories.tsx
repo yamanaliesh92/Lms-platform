@@ -11,7 +11,7 @@ import {
   FcSportsMode,
   FcOldTimeCamera,
 } from "react-icons/fc";
-import CategoryItem from "./category-Item";
+import CategoryItem from "./category-item";
 
 const iconMap: Record<Category["name"], IconType> = {
   Music: FcMusic,
