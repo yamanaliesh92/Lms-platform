@@ -3,6 +3,8 @@ import { auth } from "@clerk/nextjs/server";
 import Categories from "./_components/categories";
 import { redirect } from "next/navigation";
 import SearchInput from "../../_components/search-input";
+import { getCourses } from "../../../../../action/get-course";
+import CoursesList from "../../_components/course-list";
 
 interface SearchPageProps {
   searchParams: { title: string; categoryId: string };
