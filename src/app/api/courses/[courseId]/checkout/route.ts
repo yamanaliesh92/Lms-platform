@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { currentUser } from "@clerk/nextjs/server";
 
 export async function POST(
   req: NextRequest,
@@ -10,9 +11,9 @@ export async function POST(
 ) {
   try {
     const { courseId } = params;
-    const { userId } = auth();
-    if (!userId) {
-      return NextResponse.json("Unauthorized", { status: 401 });
+    const user = await currentUser();
+    if (!user || user.id || user.emailAddresses?.[0].emailAddress) {
+      return NextResponse.json("Unaired", { status: 401 });
     }
     const course = await db.course.findUnique({
       where: { id: courseId, isPublished: true },
@@ -55,11 +56,8 @@ export async function POST(
     });
 
     if (!stripeCustomer) {
-      // that mean user purchase for first time so i will create it
-
       const customer = await stripe.customers.create({
-        // email:user.emailAddresses[0].emailAddresses
-        email: "yaman@gmail.com",
+        email: user.emailAddresses[0].emailAddress,
       });
       stripeCustomer = await db.stripeCustomer.create({
         data: {
