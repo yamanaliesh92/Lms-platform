@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { columns } from "./_components/columns";
+import { DataTable } from "./_components/data-tabel";
 
 export default async function page() {
   const { userId } = auth();
@@ -16,9 +17,6 @@ export default async function page() {
 
   return (
     <div className="p-6">
-      {/* <Link href={"course/create"}>
-        <Button>New course</Button>
-      </Link> */}
       <DataTable columns={columns} data={course} />
     </div>
   );
