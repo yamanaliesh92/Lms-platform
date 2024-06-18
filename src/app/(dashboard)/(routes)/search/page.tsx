@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import SearchInput from "../../_components/search-input";
 import { getCourses } from "../../../../../action/get-course";
 import CoursesList from "../../_components/course-list";
+import { db } from "@/lib/db";
 
 interface SearchPageProps {
   searchParams: { title: string; categoryId: string };

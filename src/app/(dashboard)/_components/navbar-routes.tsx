@@ -6,6 +6,7 @@ import { redirect, usePathname } from "next/navigation";
 import React from "react";
 
 import { UserButton } from "@clerk/nextjs";
+import SearchInput from "./search-input";
 
 export default function NavbarRoutes() {
   const pathName = usePathname();
@@ -15,7 +16,11 @@ export default function NavbarRoutes() {
   const isSearchPage = pathName === "/search";
   return (
     <>
-      {isSearchPage && <div className="hidden md:block">search</div>}
+      {isSearchPage && (
+        <div className="hidden md:block">
+          <SearchInput />
+        </div>
+      )}
       <div className="flex items-center gap-x-2 ml-auto">
         {isTeacherPage || isCoursesPage ? (
           <Link href={"/"}>
