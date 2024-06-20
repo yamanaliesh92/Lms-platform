@@ -1,3 +1,4 @@
+import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -6,6 +7,7 @@ export async function PUT(
   { params }: { params: { courseId: string } }
 ) {
   try {
+    console.log("REORDER");
     const { userId } = auth();
     if (!userId) {
       return NextResponse.json("Unauthorized", { status: 401 });
@@ -15,7 +17,6 @@ export async function PUT(
 
     const { list } = await req.json();
 
-    console.log("REs", db.user.create);
     const courseOwner = await db.course.findUnique({
       where: { userId, id: courseId },
     });

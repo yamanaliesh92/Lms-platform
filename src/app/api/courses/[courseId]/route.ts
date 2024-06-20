@@ -22,7 +22,7 @@ export async function PATCH(
     const value = await req.json();
 
     const save = await db.course.update({
-      where: { id: params.courseId, userId: "1" },
+      where: { id: params.courseId, userId },
       data: { ...value },
     });
     return NextResponse.json(save);
