@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
 import React from "react";
-import { getProgress } from "../../../../../actions/get-progress";
+import { auth } from "@clerk/nextjs/server";
 import CourseNavbar from "./_components/course-navbar";
 import CourseSidebar from "./_components/course-sidebar";
 import { db } from "@/lib/db";
+import { getProgress } from "../../../../../action/get-progress";
 
 export default async function layout({
   children,
@@ -12,9 +13,11 @@ export default async function layout({
   children: React.ReactNode;
   params: { courseId: string };
 }) {
-  // const {userId}=auth()
-  // if(!userid){return redirect("/")}
-  const userId = "1";
+  const { userId } = auth();
+
+  if (!userId) {
+    return redirect("/");
+  }
 
   const course = await db.course.findUnique({
     where: { id: params.courseId },
@@ -29,7 +32,7 @@ export default async function layout({
   if (!course) {
     return redirect("/");
   }
-  //   get progress for each chapter
+
   const progressCount = await getProgress(userId, course.id);
   return (
     <div className="h-full">

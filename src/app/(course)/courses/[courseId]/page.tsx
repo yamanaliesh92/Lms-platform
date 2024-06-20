@@ -1,9 +1,6 @@
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
-// i create a new orgnaztion outside dash beacuse i wnat when client watch the course dont have sidebar or navbar
-
-// this compoent when click watch course always open first chapter automicatlly
 export default async function page({
   params,
 }: {
