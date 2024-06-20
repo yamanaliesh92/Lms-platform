@@ -5,6 +5,8 @@ import { auth } from "@clerk/nextjs/server";
 import CourseProgress from "./course-progress";
 import CourseSidebarItem from "./Course-sidebar-item";
 import { redirect } from "next/navigation";
+import { ArrowBigLeft, ArrowLeft, Backpack } from "lucide-react";
+import Link from "next/link";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -34,9 +36,14 @@ export default async function CourseSidebar({
 
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-      <div className="p-7 flex flex-col border-b">
+      <Link className="absolute top-7 left-2" href={`/search`}>
+        <ArrowLeft />
+      </Link>
+
+      <div className="p-7 flex  items-center justify-center border-b">
         <h1 className="font-semibold">{course.title}</h1>
       </div>
+
       {purchase && (
         <div className="mt-10">
           <CourseProgress variant="success" value={progressCount} />
@@ -50,7 +57,7 @@ export default async function CourseSidebar({
             label={chapter.title}
             isCompleted={!!chapter.userProgress?.[0]?.isCompleted}
             courseId={course.id}
-            isLocked={!purchase}
+            isLocked={!chapter.isFree && !purchase}
           />
         ))}
       </div>
