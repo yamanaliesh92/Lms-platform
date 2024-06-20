@@ -12,7 +12,7 @@ export async function POST(
     const { courseId } = params;
     const user = await currentUser();
     if (!user || user.id || user.emailAddresses?.[0].emailAddress) {
-      return NextResponse.json("Unaired", { status: 401 });
+      return NextResponse.json("Unauthorized", { status: 401 });
     }
     const course = await db.course.findUnique({
       where: { id: courseId, isPublished: true },
@@ -21,7 +21,7 @@ export async function POST(
     const purchase = await db.purchase.findUnique({
       where: {
         userId_courseId: {
-          userId: "1",
+          userId: user.id,
           courseId,
         },
       },
@@ -50,7 +50,7 @@ export async function POST(
     ];
 
     let stripeCustomer = await db.stripeCustomer.findUnique({
-      where: { userId: "1" },
+      where: { userId: user.id },
       select: { stripeCustomerId: true },
     });
 
@@ -60,7 +60,7 @@ export async function POST(
       });
       stripeCustomer = await db.stripeCustomer.create({
         data: {
-          userId: "1",
+          userId: user.id,
           stripeCustomerId: customer.id,
         },
       });
@@ -74,7 +74,7 @@ export async function POST(
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?canceled=1`,
       metadata: {
         courseId: courseId,
-        userId: "1",
+        userId: user.id,
       },
     });
     return NextResponse.json({ url: session.url });

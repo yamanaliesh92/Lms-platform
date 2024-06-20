@@ -6,9 +6,10 @@ import CourseEnrollButton from "./_components/course-enroll-butoon";
 import CourseProgressButton from "./_components/course-progress-button";
 import VideoPlayer from "./_components/video-player";
 import { Banner } from "@/app/(dashboard)/_components/banner";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+
 import Preview from "@/components/Preview";
 import { getChapter } from "../../../../../../../action/get-chapter";
+import { Separator } from "@/components/ui/separator";
 
 export default async function page({
   params,

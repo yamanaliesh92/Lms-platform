@@ -36,8 +36,6 @@ export default function ChapterVideoForm({
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    .log(values);
-
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`,

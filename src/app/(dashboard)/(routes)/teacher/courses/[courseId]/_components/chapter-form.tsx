@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  FormDescription,
   FormControl,
   FormField,
   FormMessage,
@@ -43,7 +42,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
       title: "",
     },
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const toggleCreating = () => {
@@ -51,10 +50,8 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    .log(values);
-
     try {
-      const res = await axios.post(
+      await axios.post(
         `http://localhost:3000/api/courses/${courserId}/chapters`,
         values
       );

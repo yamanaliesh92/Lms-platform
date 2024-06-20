@@ -31,10 +31,7 @@ export default function ImageForm({ initialData, id }: IImageFormProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.patch(
-        `http://localhost:3000/api/courses/${id}`,
-        values
-      );
+      await axios.patch(`http://localhost:3000/api/courses/${id}`, values);
       toggle();
       router.refresh();
       toast.success("updated success");

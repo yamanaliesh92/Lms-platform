@@ -24,7 +24,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 interface IProps {
   initialData: Chapter;
-
   courseId: string;
   chapterId: string;
 }

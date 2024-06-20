@@ -33,7 +33,6 @@ export default function CourseProgressButton({
         { isCompleted: !isCompleted }
       );
       if (!isCompleted && !nextChapter) {
-        // that mean you reache the end of course
         confetti.onOpen();
       }
       if (!isCompleted && nextChapter) {
@@ -56,7 +55,6 @@ export default function CourseProgressButton({
     >
       {isCompleted ? "Not Completed" : "Mark as Complete"}
       <Icon className="h-4 w-4 ml-2" />
-      cess
     </Button>
   );
 }

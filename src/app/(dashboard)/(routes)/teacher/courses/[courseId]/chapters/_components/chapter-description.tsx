@@ -46,7 +46,7 @@ export default function ChapterDescriptionForm({
       description: initialData?.description || "",
     },
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const toggle = () => {

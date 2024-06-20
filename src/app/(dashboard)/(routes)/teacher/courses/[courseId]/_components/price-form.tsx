@@ -42,7 +42,7 @@ export default function PriceForm({ initialData, id }: IProps) {
       price: initialData?.price || undefined,
     },
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const toggle = () => {
@@ -51,10 +51,7 @@ export default function PriceForm({ initialData, id }: IProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.patch(
-        `http://localhost:3000/api/courses/${id}`,
-        values
-      );
+      await axios.patch(`http://localhost:3000/api/courses/${id}`, values);
       toggle();
       router.refresh();
       toast.success("updated success");
