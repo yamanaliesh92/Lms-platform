@@ -51,7 +51,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    .log(values);
 
     try {
       const res = await axios.post(

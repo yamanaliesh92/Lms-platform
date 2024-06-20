@@ -41,7 +41,7 @@ export default function ChapterActions({
 
   const onClick = async () => {
     try {
-      console.log("DDDDDDDDDDDDD");
+      .log("DDDDDDDDDDDDD");
       setIsLoading(true);
       if (isPublished) {
         await axios.patch(

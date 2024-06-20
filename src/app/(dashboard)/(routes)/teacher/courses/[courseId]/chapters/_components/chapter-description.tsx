@@ -54,8 +54,6 @@ export default function ChapterDescriptionForm({
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`,

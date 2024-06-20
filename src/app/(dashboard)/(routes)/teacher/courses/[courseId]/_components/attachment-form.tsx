@@ -33,8 +33,6 @@ export default function AttachmentForm({
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
       const res = await axios.post(
         `http://localhost:3000/api/courses/${courseId}/attachments`,

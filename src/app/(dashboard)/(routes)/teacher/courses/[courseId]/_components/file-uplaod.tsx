@@ -10,7 +10,6 @@ interface IFileUploadProps {
   endpoint: keyof OurFileRouter;
 }
 export default function FileUpload({ onChange, endpoint }: IFileUploadProps) {
-  console.log("GGGGGGGG");
   return (
     <UploadDropzone
       endpoint={endpoint}

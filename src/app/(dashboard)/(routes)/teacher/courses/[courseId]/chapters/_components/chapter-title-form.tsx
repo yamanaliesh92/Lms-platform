@@ -41,7 +41,7 @@ export default function ChapterTitleForm({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const toggle = () => {
@@ -49,8 +49,6 @@ export default function ChapterTitleForm({
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`,

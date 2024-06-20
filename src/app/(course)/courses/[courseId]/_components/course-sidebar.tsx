@@ -1,14 +1,11 @@
 import { db } from "@/lib/db";
 import { Chapter, Course, UserProgress } from "@prisma/client";
 import React from "react";
+import { auth } from "@clerk/nextjs/server";
 import CourseProgress from "./course-progress";
 import CourseSidebarItem from "./Course-sidebar-item";
+import { redirect } from "next/navigation";
 
-//     course: Course & {
-// chapter: Chapter[];
-//   }; because include chapter
-
-// const db = new aClient();
 interface CourseSidebarProps {
   course: Course & {
     chapters: (Chapter & {
@@ -21,12 +18,13 @@ export default async function CourseSidebar({
   progressCount,
   course,
 }: CourseSidebarProps) {
-  // const {userId}=auth()
-  // if(!user
-  const userId = "1";
+  const { userId } = auth();
+  if (!userId) {
+    return redirect("/");
+  }
+
   const purchase = await db.purchase.findUnique({
     where: {
-      // unique query
       userId_courseId: {
         userId,
         courseId: course.id,
@@ -34,12 +32,10 @@ export default async function CourseSidebar({
     },
   });
 
-  console.log("dddddD", purchase);
-
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
       <div className="p-7 flex flex-col border-b">
-        <h1 className="font-semibold">{course.title}d</h1>
+        <h1 className="font-semibold">{course.title}</h1>
       </div>
       {purchase && (
         <div className="mt-10">

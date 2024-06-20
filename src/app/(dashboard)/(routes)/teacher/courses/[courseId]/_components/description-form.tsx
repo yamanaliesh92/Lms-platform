@@ -49,8 +49,6 @@ export default function DescriptionForm({ initialData, id }: IProps) {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
       const res = await axios.patch(
         `http://localhost:3000/api/courses/${id}`,
