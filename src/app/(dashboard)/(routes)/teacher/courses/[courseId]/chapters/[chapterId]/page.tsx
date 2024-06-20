@@ -14,14 +14,14 @@ import { Banner } from "@/app/(dashboard)/_components/banner";
 export default async function page({
   params,
 }: {
-  params: { courseId: string; chaptersId: string };
+  params: { courseId: string; chapterId: string };
 }) {
   const { userId } = auth();
   if (!userId) {
     redirect("/");
   }
   const chapter = await db.chapter.findUnique({
-    where: { id: params.chaptersId, courseId: params.courseId },
+    where: { id: params.chapterId, courseId: params.courseId },
     include: { maxData: true },
   });
   if (!chapter) {
@@ -45,7 +45,7 @@ export default async function page({
         <div className="flex items-center justify-between">
           <div className="w-full">
             <Link
-              href={`/teacher/course/${params.courseId}`}
+              href={`/teacher/courses/${params.courseId}`}
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2 " />
@@ -61,7 +61,7 @@ export default async function page({
               <ChapterActions
                 disable={!isComplete}
                 courseId={params.courseId}
-                chapterId={params.chaptersId}
+                chapterId={params.chapterId}
                 isPublished={chapter.isPublished}
               />
             </div>
@@ -77,12 +77,12 @@ export default async function page({
 
               <ChapterTitleForm
                 initialData={chapter}
-                chapterId={params.chaptersId}
+                chapterId={params.chapterId}
                 courseId={params.courseId}
               />
               <ChapterDescriptionForm
                 initialData={chapter}
-                chapterId={params.chaptersId}
+                chapterId={params.chapterId}
                 courseId={params.courseId}
               />
             </div>
@@ -92,7 +92,7 @@ export default async function page({
             </div>
             <ChapterAccessFormForm
               initialData={chapter}
-              chapterId={params.chaptersId}
+              chapterId={params.chapterId}
               courseId={params.courseId}
             />
           </div>
@@ -103,7 +103,7 @@ export default async function page({
             </div>
             <ChapterVideoForm
               initialData={chapter}
-              chapterId={params.chaptersId}
+              chapterId={params.chapterId}
               courseId={params.courseId}
             />
           </div>
