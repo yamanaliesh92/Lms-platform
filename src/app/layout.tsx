@@ -31,8 +31,6 @@ export default function RootLayout({
             <ConfettiProvider />
             {children}
           </ThemeProvider>
-
-          {children}
         </body>
       </html>
     </ClerkProvider>

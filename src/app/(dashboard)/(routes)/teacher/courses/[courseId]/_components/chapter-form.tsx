@@ -85,7 +85,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
     router.push(`${courserId}/chapters/${id}`);
   };
   return (
-    <div className="mt-4 relative border bg-slate-100 rounded-md p-2">
+    <div className="mt-4 relative border bg-slate-100 dark:bg-background  rounded-md p-2">
       {isUpdating && (
         <div className="absolute h-full w-full top-0 right-0 rounded-md flex items-center justify-center bg-slate-500/20  mt-6  p-4">
           <Loader2 className="animate-spin h-6 w-6 text-sky-700" />

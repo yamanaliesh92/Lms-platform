@@ -49,7 +49,7 @@ export default function ChapterVideoForm({
     }
   };
   return (
-    <div className="mt-4 border bg-slate-100 rounded-md p-2">
+    <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
         Chapter video
         <Button onClick={toggle} variant={"ghost"}>

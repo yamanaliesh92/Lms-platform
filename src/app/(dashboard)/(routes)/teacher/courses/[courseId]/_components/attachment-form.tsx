@@ -62,7 +62,7 @@ export default function AttachmentForm({
     }
   };
   return (
-    <div className="mt-4 border bg-slate-100 rounded-md p-2">
+    <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
         Course attachment
         <Button onClick={toggle} variant={"ghost"}>

@@ -59,7 +59,7 @@ export default function DescriptionForm({ initialData, id }: IProps) {
     }
   };
   return (
-    <div className="mt-4 border bg-slate-100 rounded-md p-2">
+    <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
         Course Description
         <Button onClick={toggle} variant={"ghost"}>

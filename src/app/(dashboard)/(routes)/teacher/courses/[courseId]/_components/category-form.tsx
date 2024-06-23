@@ -64,7 +64,7 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
     (option) => option.value === initialData.categoryId
   );
   return (
-    <div className="mt-4 border bg-slate-100 rounded-md p-2">
+    <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
         Course Category
         <Button onClick={toggle} variant={"ghost"}>

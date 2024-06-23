@@ -7,6 +7,7 @@ import React from "react";
 
 import { UserButton } from "@clerk/nextjs";
 import SearchInput from "./search-input";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function NavbarRoutes() {
   const pathName = usePathname();
@@ -37,6 +38,7 @@ export default function NavbarRoutes() {
           </Link>
         )}
         <UserButton afterSignOutUrl="/" />
+        <ThemeToggle />
       </div>
     </>
   );
