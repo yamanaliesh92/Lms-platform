@@ -49,7 +49,7 @@ export default function VideoPlayer({
     }
   };
   return (
-    <div className="relative aspect-video">
+    <div className="relative aspect-video  w-full h-[300px]">
       {!isReady && !isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800 ">
           <Loader2 className="h-8 w-8 animate-spin text-secondary" />
@@ -65,7 +65,7 @@ export default function VideoPlayer({
         <MuxPlayer
           title={title}
           autoPlay
-          className={`${!isReady && "hidden"} h-[100px] w-[400px] mx-auto`}
+          className={`${!isReady && "hidden"} h-full mx-auto`}
           onCanPlay={() => setIsReady(true)}
           onEnded={onEnd}
           playbackId={playbackId}
