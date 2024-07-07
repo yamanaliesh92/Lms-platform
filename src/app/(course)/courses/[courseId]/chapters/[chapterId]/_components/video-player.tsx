@@ -56,7 +56,7 @@ export default function VideoPlayer({
         </div>
       )}
       {isLocked && (
-        <div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gay-2 text-secondary">
+        <div className="absolute inset-0 flex items-center justify-center bg-slate-800 dark:text-primary flex-col gay-2 text-secondary">
           <Lock className="h-8 w-8 " />
           <p className="text-sm">this chapter is locked</p>
         </div>

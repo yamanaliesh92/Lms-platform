@@ -22,6 +22,7 @@ export default function CourseEnrollButton({
       const response = await axios.post(
         `http://localhost:3000/api/courses/${courseId}/checkout`
       );
+
       window.location.assign(response.data.url);
     } catch (error) {
       console.log("error", error);
