@@ -1,8 +1,9 @@
+import { stripe } from "@/lib/stripe";
+
 import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import Stripe from "stripe";
-import { currentUser } from "@clerk/nextjs/server";
-import { stripe } from "@/lib/stripe";
 
 export async function POST(
   req: NextRequest,
@@ -10,10 +11,13 @@ export async function POST(
 ) {
   try {
     const { courseId } = params;
-    const user = await currentUser();
-    if (!user || user.id || user.emailAddresses?.[0].emailAddress) {
+
+    const { userId } = auth();
+
+    if (!userId) {
       return NextResponse.json("Unauthorized", { status: 401 });
     }
+
     const course = await db.course.findUnique({
       where: { id: courseId, isPublished: true },
     });
@@ -21,14 +25,14 @@ export async function POST(
     const purchase = await db.purchase.findUnique({
       where: {
         userId_courseId: {
-          userId: user.id,
+          userId,
           courseId,
         },
       },
     });
 
     if (purchase) {
-      return NextResponse.json("already purchase", { status: 400 });
+      return NextResponse.json("this course already purchase", { status: 400 });
     }
 
     if (!course) {
@@ -49,22 +53,21 @@ export async function POST(
       },
     ];
 
-    let stripeCustomer = await db.stripeCustomer.findUnique({
-      where: { userId: user.id },
-      select: { stripeCustomerId: true },
+    const customer = await stripe.customers.create({
+      email: "alyamanaliesh@gmail.com",
     });
 
-    if (!stripeCustomer) {
-      const customer = await stripe.customers.create({
-        email: user.emailAddresses[0].emailAddress,
-      });
-      stripeCustomer = await db.stripeCustomer.create({
-        data: {
-          userId: user.id,
-          stripeCustomerId: customer.id,
-        },
-      });
-    }
+    let stripeCustomer = await db.stripeCustomer.upsert({
+      where: {
+        userId,
+      },
+      create: {
+        stripeCustomerId: customer.id,
+        userId: "user_2iuayzQVpZFp5ZPllGsGY25zTIm",
+      },
+      update: { updatedAt: new Date() },
+      select: { stripeCustomerId: true },
+    });
 
     const session = await stripe.checkout.sessions.create({
       customer: stripeCustomer.stripeCustomerId,
@@ -74,7 +77,7 @@ export async function POST(
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/courses/${course.id}?canceled=1`,
       metadata: {
         courseId: courseId,
-        userId: user.id,
+        userId,
       },
     });
     return NextResponse.json({ url: session.url });

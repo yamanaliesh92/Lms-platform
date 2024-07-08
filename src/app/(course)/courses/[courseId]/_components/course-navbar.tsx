@@ -1,4 +1,5 @@
 import NavbarRoutes from "@/app/(dashboard)/_components/navbar-routes";
+
 import { Chapter, Course, UserProgress } from "@prisma/client";
 import React from "react";
 import CourseMobileSidebar from "./course-mobile-sidebar";

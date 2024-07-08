@@ -15,6 +15,8 @@ export default async function layout({
 }) {
   const { userId } = auth();
 
+  console.log("userIdds", userId);
+
   if (!userId) {
     return redirect("/");
   }

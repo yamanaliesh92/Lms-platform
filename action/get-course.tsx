@@ -42,7 +42,6 @@ export const getCourses = async ({
     });
     const coursesWithProgress: any[] = await Promise.all(
       courses.map(async (course) => {
-        // if course not pursches i will display price insteand of
         if (course.purchases.length === 0) {
           return {
             ...course,

@@ -12,6 +12,7 @@ export default function ConfettiProvider() {
     <ReactConfetti
       className="pointer-events-none z-[1000]"
       numberOfPieces={1000}
+      time
       recycle={false}
       onConfettiComplete={() => {
         confetti.onClose();

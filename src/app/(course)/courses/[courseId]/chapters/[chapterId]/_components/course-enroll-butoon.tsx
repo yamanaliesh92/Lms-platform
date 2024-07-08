@@ -26,7 +26,7 @@ export default function CourseEnrollButton({
       window.location.assign(response.data.url);
     } catch (error) {
       console.log("error", error);
-      toast.error("some thing went wrong");
+      toast.error(" thing went wrong");
     } finally {
       setISLoading(false);
     }

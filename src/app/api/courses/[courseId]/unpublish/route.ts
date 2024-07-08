@@ -27,6 +27,6 @@ export async function PATCH(
     return NextResponse.json(unPublishedCourse);
   } catch (err) {
     console.log("error in published chapter", err);
-    return NextResponse.json("some thing went wrong", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }

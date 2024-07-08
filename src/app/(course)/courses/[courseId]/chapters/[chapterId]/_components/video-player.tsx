@@ -45,7 +45,7 @@ export default function VideoPlayer({
         router.push(`/courses/${courseId}/chapters/${nextChapter}`);
       }
     } catch {
-      toast.error("some thing error ");
+      toast.error("Something error ");
     }
   };
   return (

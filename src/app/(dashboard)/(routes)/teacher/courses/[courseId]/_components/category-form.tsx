@@ -56,7 +56,7 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
       router.refresh();
       toast.success("updated success");
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     }
   };
 

@@ -58,7 +58,7 @@ export default function ChapterTitleForm({
       router.refresh();
       toast.success("Chapter success");
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     }
   };
   return (

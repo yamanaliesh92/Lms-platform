@@ -29,7 +29,7 @@ export async function PATCH(
   } catch (err) {
     console.log("[course]", err);
 
-    return NextResponse.json("something went wrong", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }
 

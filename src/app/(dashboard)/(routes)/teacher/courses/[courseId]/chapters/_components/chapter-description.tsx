@@ -63,7 +63,7 @@ export default function ChapterDescriptionForm({
       router.refresh();
       toast.success("updated success");
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error(" thing went wrong");
     }
   };
   return (

@@ -75,7 +75,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
       toast.success("Chapters reordered");
       router.refresh();
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error(" thing went wrong");
     } finally {
       setIsUpdating(false);
     }

@@ -7,6 +7,7 @@ import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+
 import { useConfettiStore } from "../../../../../../../../hook/use-confetti-store";
 
 interface IActionProps {
@@ -29,9 +30,9 @@ export default function ChapterActions({
       await axios.delete(`http://localhost:3000/api/courses/${courseId}`);
       toast.success("Course deleted");
       router.refresh();
-      router.push("/dash/teacher/course");
+      router.push("/teacher/course");
     } catch {
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +56,7 @@ export default function ChapterActions({
 
       router.refresh();
     } catch {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }

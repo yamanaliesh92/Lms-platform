@@ -33,7 +33,7 @@ export default function ChapterActions({
       router.refresh();
       router.push(`/teacher/course/${courseId}`);
     } catch {
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -52,6 +52,7 @@ export default function ChapterActions({
           `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}/publish`
         );
         toast.success("Chapter published");
+        router.push(`/teacher/courses/${courseId}`);
       }
 
       router.refresh();

@@ -45,7 +45,7 @@ export default function page() {
       router.push(`/teacher/courses/${res.data.id}`);
       toast.success("created success");
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     }
   };
 
