@@ -1,0 +1,39 @@
+{
+  "Index": {
+    "title": "by"
+  },
+  "NotFoundPage": {
+    "title": "الصفحة المطلوبة غير موجودة"
+  },
+  "navBarPage": {
+    "teacher": "وضع المعلم"
+  },
+  "SideBar": {
+    "title": "تصفح",
+    "search": "بحث"
+  },
+  "InfoCard": {
+    "completed": "مكتمل",
+    "course": "كورس",
+    "courses": "كورسات"
+  },
+  "Action": {
+    "edit": "تعديل",
+    "cancel": "الغاء"
+  },
+  "CreateCourse": {
+    "continuo": "استمرار",
+    "title": "عنوان الكورس",
+    "name": "اسم كورسك",
+    "subName": "ماذا تريد ان تسمي الكوروس",
+    "cancel": "الغاء",
+    "description": "ماذا تريد ان تعلم في هذا الكورس"
+  },
+  "Course": {
+    "new": "كورس جديد",
+    "placeholder": "بحث عن كورس...",
+    "previous": "السابق",
+    "noResult": "لا يوجد نتائج...",
+    "next": "التالي"
+  }
+}

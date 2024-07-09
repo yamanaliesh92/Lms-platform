@@ -1,0 +1,39 @@
+{
+  "Index": {
+    "title": "Hello world!"
+  },
+  "NotFoundPage": {
+    "title": "Page Not found"
+  },
+  "navBarPage": {
+    "teacher": "Teacher Mode"
+  },
+  "SideBar": {
+    "title": "Browse",
+    "search": "Search"
+  },
+  "InfoCard": {
+    "completed": "Completed",
+    "course": "Course",
+    "courses": "Courses"
+  },
+  "Action": {
+    "edit": "Edit",
+    "cancel": "Cancel"
+  },
+  "CreateCourse": {
+    "continuo": "Continuo",
+    "name": "Name Your course",
+    "subName": "what would you like to name your course ? Dont worry",
+    "title": "course title",
+    "cancel": "Cancel",
+    "description": "what will you teach in this course"
+  },
+  "Course": {
+    "new": "New Course",
+    "placeholder": "Filter course...",
+    "next": "Next",
+    "previous": "Previous",
+    "noResult": "No result.."
+  }
+}
