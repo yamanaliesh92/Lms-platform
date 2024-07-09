@@ -56,7 +56,7 @@ export default function AttachmentForm({
       toast.success("Attachment deleted");
       router.refresh();
     } catch {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     } finally {
       setDeletingId(null);
     }

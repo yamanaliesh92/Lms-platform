@@ -59,7 +59,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
       router.refresh();
       toast.success("chapter created");
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     }
   };
 

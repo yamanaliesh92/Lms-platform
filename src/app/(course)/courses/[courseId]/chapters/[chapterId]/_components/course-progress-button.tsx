@@ -41,7 +41,7 @@ export default function CourseProgressButton({
       toast.success("Progress updated");
       router.refresh();
     } catch {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
