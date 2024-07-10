@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useConfettiStore } from "../../../../../../../../../hook/use-confetti-store";
+import { ClipLoader } from "react-spinners";
 
 interface CourseProgressButtonProps {
   chapterId: string;
@@ -53,7 +54,19 @@ export default function CourseProgressButton({
       className="w-full md:w-auto"
       variant={isCompleted ? "outline" : "success"}
     >
-      {isCompleted ? "Not Completed" : "Mark as Complete"}
+      {isLoading ? (
+        <ClipLoader
+          color={"gray"}
+          loading={isLoading}
+          size={18}
+          aria-label="Loading Spinner"
+        />
+      ) : isCompleted ? (
+        "Not Completed"
+      ) : (
+        "Mark as Complete"
+      )}
+
       <Icon className="h-4 w-4 ml-2" />
     </Button>
   );

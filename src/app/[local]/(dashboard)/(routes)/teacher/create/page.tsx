@@ -21,10 +21,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/dist/types/src/server/react-server/RequestLocale";
+import { Metadata } from "next";
 
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
+  title: z.string().min(1, { message: "Title Course is required" }),
 });
 
 export default function page() {
@@ -98,7 +98,6 @@ export default function page() {
                     loading={isLoading}
                     size={18}
                     aria-label="Loading Spinner"
-                    data-testid="loader"
                   />
                 ) : (
                   t("continue")

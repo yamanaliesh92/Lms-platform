@@ -4,6 +4,7 @@ import formatPrice from "@/lib/format";
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 
 interface CourseEnrollButtonProps {
   price: number;
@@ -19,14 +20,12 @@ export default function CourseEnrollButton({
   const onClick = async () => {
     try {
       setISLoading(true);
-      const response = await axios.post(
-        `http://localhost:3000/api/courses/${courseId}/checkout`
-      );
-
+      const response = await axios.post(`/api/courses/${courseId}/checkout`);
+      setISLoading(false);
       window.location.assign(response.data.url);
     } catch (error) {
       console.log("error", error);
-      toast.error(" thing went wrong");
+      toast.error("Something went wrong");
     } finally {
       setISLoading(false);
     }
@@ -38,7 +37,16 @@ export default function CourseEnrollButton({
       size={"sm"}
       className="w-full md:w-auto"
     >
-      Enroll for {formatPrice(price)}
+      {isLoading ? (
+        <ClipLoader
+          color={"gray"}
+          loading={isLoading}
+          size={18}
+          aria-label="Loading Spinner"
+        />
+      ) : (
+        `Enroll for ${formatPrice(price)}`
+      )}
     </Button>
   );
 }
