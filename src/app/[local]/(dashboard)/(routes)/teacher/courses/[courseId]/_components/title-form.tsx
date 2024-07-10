@@ -29,7 +29,7 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title Course is required" }),
+  title: z.string().min(1, { message: "Course title is required" }),
 });
 
 export default function FormTitle({ initialData, id }: IProps) {

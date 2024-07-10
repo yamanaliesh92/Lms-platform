@@ -32,7 +32,7 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  price: z.coerce.number(),
+  price: z.coerce.number({ message: "Course Price is required" }),
 });
 
 export default function PriceForm({ initialData, id }: IProps) {

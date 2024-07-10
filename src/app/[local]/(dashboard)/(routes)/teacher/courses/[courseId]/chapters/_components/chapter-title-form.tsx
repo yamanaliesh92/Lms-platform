@@ -28,7 +28,7 @@ interface IChaPterTitleFormProps {
 }
 
 const formSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1, { message: "Chapter title is required" }),
 });
 
 export default function ChapterTitleForm({
@@ -40,6 +40,7 @@ export default function ChapterTitleForm({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
+    mode: "all",
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });

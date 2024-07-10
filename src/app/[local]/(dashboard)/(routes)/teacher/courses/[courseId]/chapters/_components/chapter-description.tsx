@@ -25,13 +25,14 @@ import { ClipLoader } from "react-spinners";
 
 interface IProps {
   initialData: Chapter;
-
   courseId: string;
   chapterId: string;
 }
 
 const formSchema = z.object({
-  description: z.string().min(1),
+  description: z
+    .string()
+    .min(1, { message: "Chapter description is required" }),
 });
 
 export default function ChapterDescriptionForm({
@@ -43,6 +44,7 @@ export default function ChapterDescriptionForm({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
+    mode: "all",
     resolver: zodResolver(formSchema),
     defaultValues: {
       description: initialData?.description || "",
@@ -65,7 +67,7 @@ export default function ChapterDescriptionForm({
       toggle();
       setIsLoading(false);
       router.refresh();
-      toast.success("updated success");
+      toast.success("Updated success");
     } catch (err) {
       toast.error(" thing went wrong");
     } finally {

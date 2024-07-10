@@ -86,7 +86,7 @@
 
   "Chapter": {
     "edit": "Edit Chapter",
-    "crate": "Create",
+    "create": "Create",
     "cancel": "Cancel",
     "add": "Add a chapter",
     "name": "Course Chapter",

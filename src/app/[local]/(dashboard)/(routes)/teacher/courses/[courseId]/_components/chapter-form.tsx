@@ -30,7 +30,7 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1, { message: "Chapter Course is required" }),
 });
 
 export default function ChapterForm({ initialData, courserId }: IProps) {
@@ -41,6 +41,8 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
   const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "all",
+
     defaultValues: {
       title: "",
     },
@@ -60,6 +62,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
       toggleCreating();
       router.refresh();
       toast.success("Chapter created");
+      from.reset({});
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
@@ -124,7 +127,6 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
                       {...field}
                     />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}

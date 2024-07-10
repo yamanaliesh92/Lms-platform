@@ -31,7 +31,7 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, { message: "Description Course is required" }),
+  description: z.string().min(1, { message: "Course description is required" }),
 });
 
 export default function DescriptionForm({ initialData, id }: IProps) {

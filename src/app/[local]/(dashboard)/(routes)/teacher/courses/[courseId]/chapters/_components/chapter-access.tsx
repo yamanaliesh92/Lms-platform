@@ -58,13 +58,13 @@ export default function ChapterAccessFormForm({
     try {
       setIsLoading(true);
       await axios.patch(
-        `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`,
+        `/api/courses/${courseId}/chapters/${chapterId}`,
         values
       );
       toggle();
       setIsLoading(false);
       router.refresh();
-      toast.success("updated success");
+      toast.success("Updated success");
     } catch (err) {
       toast.error("Something went wrong");
     } finally {

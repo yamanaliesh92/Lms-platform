@@ -21,7 +21,6 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { useTranslations } from "next-intl";
-import { Metadata } from "next";
 
 const formSchema = z.object({
   title: z.string().min(1, { message: "Title Course is required" }),

@@ -30,7 +30,7 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  categoryId: z.string().min(1),
+  categoryId: z.string().min(1, { message: "Course category is required" }),
 });
 
 export default function CategoryForm({ initialData, id, options }: IProps) {

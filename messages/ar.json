@@ -69,7 +69,7 @@
   },
   "Chapter": {
     "edit": "Modifica Capitolo",
-    "crate": "Crea",
+    "create": "Crea",
     "cancel": "Annulla",
     "add": "Aggiungi un capitolo",
     "name": "Capitolo del corso",
