@@ -23,6 +23,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import formatPrice from "@/lib/format";
+import { useTranslations } from "next-intl";
+import { ClipLoader } from "react-spinners";
 
 interface IProps {
   initialData: Course;
@@ -34,10 +36,13 @@ const formSchema = z.object({
 });
 
 export default function PriceForm({ initialData, id }: IProps) {
+  const t = useTranslations("Price");
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "all",
     defaultValues: {
       price: initialData?.price || undefined,
     },
@@ -51,25 +56,29 @@ export default function PriceForm({ initialData, id }: IProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`http://localhost:3000/api/courses/${id}`, values);
+      setIsLoading(true);
+      await axios.patch(`/api/courses/${id}`, values);
+      setIsLoading(false);
       toggle();
       router.refresh();
       toast.success("updated success");
     } catch (err) {
       toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
-        Course Price
+        {t("name")}
         <Button onClick={toggle} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>{t("cancel")}</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Price
+              {t("edit")}
             </>
           )}
         </Button>
@@ -110,7 +119,16 @@ export default function PriceForm({ initialData, id }: IProps) {
             />
             <div className="flex items-center gap-x-2">
               <Button type={"submit"} disabled={!isValid || isSubmitting}>
-                Save
+                {isLoading ? (
+                  <ClipLoader
+                    color={"gray"}
+                    loading={isLoading}
+                    size={18}
+                    aria-label="Loading Spinner"
+                  />
+                ) : (
+                  t("save")
+                )}
               </Button>
             </div>
           </form>

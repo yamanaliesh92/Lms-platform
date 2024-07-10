@@ -2,6 +2,7 @@
 import { Category, Course } from "@prisma/client";
 import React from "react";
 import CourseCard from "./course-card";
+import { useTranslations } from "next-intl";
 
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
@@ -14,6 +15,7 @@ interface CoursesListProps {
 }
 
 export default function CoursesList({ items }: CoursesListProps) {
+  const t = useTranslations("CourseList");
   return (
     <div>
       <div className="grid p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
@@ -32,7 +34,7 @@ export default function CoursesList({ items }: CoursesListProps) {
       </div>
       {items.length === 0 && (
         <div className="text-center text-sm text-muted-foreground mt-10">
-          No Course found{" "}
+          {t("notFound")}
         </div>
       )}
     </div>

@@ -7,10 +7,13 @@ import React, { useEffect, useState } from "react";
 
 import qs from "query-string";
 import { useDebounce } from "../../../../../hook/useDebounce";
+import { useTranslations } from "next-intl";
 
 export default function SearchInput() {
   const [value, setValue] = useState("");
   const debouncedValue = useDebounce(value);
+
+  const t = useTranslations("SearchPage");
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -38,7 +41,7 @@ export default function SearchInput() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200"
-        placeholder="Search for a course"
+        placeholder={t("placeholder")}
       />
     </div>
   );

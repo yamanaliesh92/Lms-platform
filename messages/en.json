@@ -1,31 +1,32 @@
 {
-  "Index": {
-    "title": "Hello world!"
-  },
   "NotFoundPage": {
     "title": "Page Not found"
   },
-  "navBarPage": {
-    "teacher": "Teacher Mode"
+  "Navbar": {
+    "teacher": "Teacher Mode",
+    "exit": "Exit"
   },
-  "SideBar": {
-    "title": "Browse",
-    "search": "Search"
+  "Sidebar": {
+    "browse": "Browse",
+    "search": "Search",
+    "analytics": "Analytics",
+    "courses": "Courses"
   },
   "InfoCard": {
     "completed": "Completed",
     "course": "Course",
-    "courses": "Courses"
+    "courses": "Courses",
+    "inProgress": "In Progress"
   },
   "Action": {
     "edit": "Edit",
     "cancel": "Cancel"
   },
   "CreateCourse": {
-    "continuo": "Continuo",
+    "continue": "Continue",
     "name": "Name Your course",
     "subName": "what would you like to name your course ? Dont worry",
-    "title": "course title",
+    "title": "Course Title",
     "cancel": "Cancel",
     "description": "what will you teach in this course"
   },
@@ -35,5 +36,97 @@
     "next": "Next",
     "previous": "Previous",
     "noResult": "No result.."
+  },
+  "CourseList": {
+    "notFound": "No Course found"
+  },
+  "Theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "SearchPage": {
+    "placeholder": "Search for a course"
+  },
+  "Title": {
+    "edit": "Edit Title",
+    "save": "Save",
+    "cancel": "Cancel",
+    "name": "Course Title"
+  },
+  "Description": {
+    "edit": "Edit Description",
+    "save": "Save",
+    "cancel": "Cancel",
+    "name": "Course Description",
+    "noResult": "No Description"
+  },
+
+  "Price": {
+    "edit": "Edit Price",
+    "save": "Save",
+    "price": "Price",
+    "cancel": "Cancel",
+    "name": "Course Price"
+  },
+  "Image": {
+    "edit": "Edit Image",
+    "save": "Save",
+    "cancel": "Cancel",
+    "add": "Add an image",
+    "name": "Course Image"
+  },
+  "Category": {
+    "edit": "Edit Category",
+    "save": "Save",
+    "cancel": "Cancel",
+    "name": "Course Category",
+    "noResult": "No category"
+  },
+
+  "Chapter": {
+    "edit": "Edit Chapter",
+    "crate": "Create",
+    "cancel": "Cancel",
+    "add": "Add a chapter",
+    "name": "Course Chapter",
+    "noResult": "No chapters",
+    "drag": "Drag and drop to reorder the chapter"
+  },
+
+  "Attachment": {
+    "attachment": "Edit Attachment",
+    "add": "Add an attachment",
+    "save": "Save",
+    "cancel": "Cancel",
+    "name": "Course Attachment",
+    "help": "Add anything your students might need to complete the course",
+    "noResult": "No attachments yet"
+  },
+  "Toast": {
+    "error": "Something went wrong"
+  },
+  "ChapterAccess": {
+    "save": "Save",
+    "description": "Check this box if you want to make this chapter free for preview"
+  },
+  "CoursePage": {
+    "chapter": "Course Chapter",
+    "setup": "Course Setup",
+    "complete": "Complete all fields",
+    "customize": "Customize Your Course",
+    "sell": "Sell your course",
+    "resource": "Resource & Attachments",
+    "publish": "Published"
+  },
+  "PublishPage": {
+    "publish": "Published",
+    "draft": "Draft",
+    "unPublish": "UnPublish",
+    "free": "Free"
+  },
+  "Table": {
+    "price": "Price",
+    "title": "Title"
   }
 }

@@ -4,9 +4,11 @@ import ConfirmModal from "@/components/modals/confrim-modals";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { ClipLoader } from "react-spinners";
 
 interface IChapterActionProps {
   disable: boolean;
@@ -22,13 +24,12 @@ export default function ChapterActions({
   isPublished,
 }: IChapterActionProps) {
   const router = useRouter();
+  const t = useTranslations("PublishPage");
   const [isLoading, setIsLoading] = useState(false);
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(
-        `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`
-      );
+      await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
       toast.success("Chapter deleted");
       router.refresh();
       router.push(`/teacher/course/${courseId}`);
@@ -44,12 +45,12 @@ export default function ChapterActions({
       setIsLoading(true);
       if (isPublished) {
         await axios.patch(
-          `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}/unpublish`
+          `/api/courses/${courseId}/chapters/${chapterId}/unpublish`
         );
         toast.success("Chapter unPublished");
       } else {
         await axios.patch(
-          `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}/publish`
+          `/api/courses/${courseId}/chapters/${chapterId}/publish`
         );
         toast.success("Chapter published");
         router.push(`/teacher/courses/${courseId}`);
@@ -71,7 +72,18 @@ export default function ChapterActions({
         variant="outline"
         size={"sm"}
       >
-        {isPublished ? "Unpublished" : "published"}
+        {isLoading ? (
+          <ClipLoader
+            color={"gray"}
+            loading={isLoading}
+            size={18}
+            aria-label="Loading Spinner"
+          />
+        ) : isPublished ? (
+          t("unPublish")
+        ) : (
+          t("publish")
+        )}
       </Button>
 
       <ConfirmModal onConfirm={onDelete}>

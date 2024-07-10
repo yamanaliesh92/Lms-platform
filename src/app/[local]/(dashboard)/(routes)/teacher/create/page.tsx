@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   FormDescription,
@@ -10,6 +10,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import ClipLoader from "react-spinners/ClipLoader";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,15 +20,20 @@ import * as z from "zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/dist/types/src/server/react-server/RequestLocale";
 
 const formSchema = z.object({
-  title: z.string().min(2, { message: "Title is required" }),
+  title: z.string().min(1, { message: "Title is required" }),
 });
 
 export default function page() {
+  const t = useTranslations("CreateCourse");
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "all",
     defaultValues: {
       title: "",
     },
@@ -35,27 +41,26 @@ export default function page() {
 
   const { isSubmitting, isValid } = from.formState;
 
-  const x = () => {
-    router.push(`/teacher/courses/${1}`);
-  };
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/courses", values);
+      setIsLoading(true);
+      const res = await axios.post("/api/courses", values);
+
       router.push(`/teacher/courses/${res.data.id}`);
+      setIsLoading(false);
       toast.success("created success");
     } catch (err) {
       toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="d max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6 ">
       <div>
-        <h1 className="text-2xl">Name Your course</h1>
-        <p className="text-sm text-slate-600">
-          what would you like to name your course ? Dont worry{" "}
-        </p>
+        <h1 className="text-2xl">{t("name")}</h1>
+        <p className="text-sm text-slate-600">{t("subName")}</p>
 
         <Form {...from}>
           <form
@@ -67,7 +72,7 @@ export default function page() {
               control={from.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>course title</FormLabel>
+                  <FormLabel>{t("title")}</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
@@ -75,9 +80,7 @@ export default function page() {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    what will you teach in this course
-                  </FormDescription>
+                  <FormDescription>{t("description")}</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -85,11 +88,21 @@ export default function page() {
             <div className="flex items-center gap-x-2">
               <Link href={"/"}>
                 <Button variant={"ghost"} type="button">
-                  Cancel
+                  {t("cancel")}
                 </Button>
               </Link>
               <Button type={"submit"} disabled={!isValid || isSubmitting}>
-                Continue
+                {isLoading ? (
+                  <ClipLoader
+                    color={"gray"}
+                    loading={isLoading}
+                    size={18}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                ) : (
+                  t("continue")
+                )}
               </Button>
             </div>
           </form>

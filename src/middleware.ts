@@ -1,29 +1,51 @@
-import { authMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-import createMiddleware from "next-intl/middleware";
+import createIntlMiddleware from "next-intl/middleware";
 
-const intlMiddleware = createMiddleware({
-  locales: ["en", "ar"],
+const locales = ["en", "ar"];
 
+// const isProtectedRoute = createRouteMatcher([
+//   "/:locale/teacher",
+//   // "/:locale/search",
+// ]);
+const isPublicRoute = createRouteMatcher([
+  "/:locale/sign-in",
+  "/:locale/sign-up",
+  "/api/uploadthing",
+]);
+const intlMiddleware = createIntlMiddleware({
+  locales,
   defaultLocale: "en",
+  localePrefix: "always",
 });
 
-export default authMiddleware({
-  beforeAuth: (req) => {
-    // Execute next-intl middleware before Clerk's auth middleware
-    return intlMiddleware(req);
-  },
+export default clerkMiddleware((auth, request) => {
+  if (!isPublicRoute(request)) {
+    auth().protect();
+  }
+  if (request.nextUrl.pathname.includes("/api")) {
+    return;
+  }
 
-  // Ensure that locale specific sign-in pages are public
-  publicRoutes: [
-    "/",
-    "/:locale/sign-in",
-    "/:locale/sign-up",
-    "/api/uploadthing",
-    "/api/webhook",
-  ],
+  const response = intlMiddleware(request);
+  return response;
 });
+
+// export default function middleware((auth,req: NextRequest) {
+//   if (!isPublicRoute(req)) {
+//     auth().protect({});
+//   }
+
+//   if (req.nextUrl.pathname.includes("/api")) {
+//     return;
+//   }
+
+//   const response = intlMiddleware(req);
+
+//   return response;
+// }
 
 export const config = {
+  // matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };

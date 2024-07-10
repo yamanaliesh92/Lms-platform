@@ -1,39 +1,110 @@
 {
-  "Index": {
-    "title": "by"
-  },
-  "NotFoundPage": {
-    "title": "الصفحة المطلوبة غير موجودة"
-  },
-  "navBarPage": {
-    "teacher": "وضع المعلم"
-  },
-  "SideBar": {
-    "title": "تصفح",
-    "search": "بحث"
+  "Index": { "title": "Ciao mondo!" },
+  "NotFoundPage": { "title": "Pagina non trovata" },
+  "Navbar": { "teacher": "Modalità Insegnante", "exit": "Esci" },
+  "Sidebar": {
+    "browse": "Sfoglia",
+    "search": "Cerca",
+    "analytics": "Analitica",
+    "courses": "Corsi"
   },
   "InfoCard": {
-    "completed": "مكتمل",
-    "course": "كورس",
-    "courses": "كورسات"
+    "completed": "Completato",
+    "course": "Corso",
+    "courses": "Corsi",
+    "inProgress": "In corso"
   },
-  "Action": {
-    "edit": "تعديل",
-    "cancel": "الغاء"
-  },
+  "Action": { "edit": "Modifica", "cancel": "Annulla" },
   "CreateCourse": {
-    "continuo": "استمرار",
-    "title": "عنوان الكورس",
-    "name": "اسم كورسك",
-    "subName": "ماذا تريد ان تسمي الكوروس",
-    "cancel": "الغاء",
-    "description": "ماذا تريد ان تعلم في هذا الكورس"
+    "continue": "Continua",
+    "name": "Nomina il tuo corso",
+    "subName": "come vorresti nominare il tuo corso? Non preoccuparti",
+    "title": "Titolo del corso",
+    "cancel": "Annulla",
+    "description": "cosa insegnerai in questo corso"
   },
   "Course": {
-    "new": "كورس جديد",
-    "placeholder": "بحث عن كورس...",
-    "previous": "السابق",
-    "noResult": "لا يوجد نتائج...",
-    "next": "التالي"
-  }
+    "new": "Nuovo Corso",
+    "placeholder": "Filtra corso...",
+    "next": "Prossimo",
+    "previous": "Precedente",
+    "noResult": "Nessun risultato.."
+  },
+  "CourseList": { "notFound": "Nessun Corso trovato" },
+  "Theme": { "light": "Chiaro", "dark": "Scuro", "system": "Sistema" },
+  "SearchPage": { "placeholder": "Cerca un corso" },
+  "Title": {
+    "edit": "Modifica Titolo",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "name": "Titolo del corso"
+  },
+  "Description": {
+    "edit": "Modifica Descrizione",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "name": "Descrizione del corso",
+    "noResult": "Nessuna Descrizione"
+  },
+  "Price": {
+    "edit": "Modifica Prezzo",
+    "save": "Salva",
+    "price": "Prezzo",
+    "cancel": "Annulla",
+    "name": "Prezzo del corso"
+  },
+  "Image": {
+    "edit": "Modifica Immagine",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "add": "Aggiungi un'immagine",
+    "name": "Immagine del corso"
+  },
+  "Category": {
+    "edit": "Modifica Categoria",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "name": "Categoria del corso",
+    "noResult": "Nessuna categoria"
+  },
+  "Chapter": {
+    "edit": "Modifica Capitolo",
+    "crate": "Crea",
+    "cancel": "Annulla",
+    "add": "Aggiungi un capitolo",
+    "name": "Capitolo del corso",
+    "noResult": "Nessun capitolo",
+    "drag": "Trascina e rilascia per riordinare il capitolo"
+  },
+  "Attachment": {
+    "attachment": "Modifica Allegato",
+    "add": "Aggiungi un allegato",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "name": "Allegato del corso",
+    "help": "Aggiungi qualsiasi cosa i tuoi studenti possano aver bisogno di completare il corso",
+    "noResult": "Nessun allegato ancora"
+  },
+  "Toast": { "error": "Qualcosa è andato storto" },
+  "ChapterAccess": {
+    "save": "Salva",
+    "description": "Seleziona questa casella se vuoi rendere questo capitolo gratuito per l'anteprima"
+  },
+  "CoursePage": {
+    "chapter": "Capitolo Del Corso",
+    "setup": "Configurazione Del Corso",
+    "complete": "Completa tutti i campi",
+    "customize": "Personalizza il tuo corso",
+    "sell": "Vendi il tuo corso",
+    "resource": "Risorse & Allegati",
+    "publish": "Pubblicato"
+  },
+  "PublishPage": {
+    "publish": "Pubblicato",
+    "draft": "Bozza",
+    "unPublish": "inedito",
+    "free": "Gratuito"
+  },
+
+  "Table": { "price": "Prezzo", "title": "Titolo" }
 }

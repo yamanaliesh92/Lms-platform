@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { useConfettiStore } from "../../../../../../../../../hook/use-confetti-store";
+import { useTranslations } from "next-intl";
+import { ClipLoader } from "react-spinners";
 
 interface IActionProps {
   disable: boolean;
@@ -22,6 +24,7 @@ export default function ChapterActions({
 }: IActionProps) {
   const router = useRouter();
   const confetti = useConfettiStore();
+  const t = useTranslations("PublishPage");
   const [isLoading, setIsLoading] = useState(false);
   const onDelete = async () => {
     try {
@@ -41,14 +44,10 @@ export default function ChapterActions({
     try {
       setIsLoading(true);
       if (isPublished) {
-        await axios.patch(
-          `http://localhost:3000/api/courses/${courseId}/unpublish`
-        );
+        await axios.patch(`/api/courses/${courseId}/unpublish`);
         toast.success("Course unPublished");
       } else {
-        await axios.patch(
-          `http://localhost:3000/api/courses/${courseId}/publish`
-        );
+        await axios.patch(`/api/courses/${courseId}/publish`);
         toast.success("Course published");
         confetti.onOpen();
       }
@@ -69,7 +68,18 @@ export default function ChapterActions({
         variant="outline"
         size={"sm"}
       >
-        {isPublished ? "Unpublished" : "published"}
+        {isLoading ? (
+          <ClipLoader
+            color={"gray"}
+            loading={isLoading}
+            size={18}
+            aria-label="Loading Spinner"
+          />
+        ) : isPublished ? (
+          t("unPublish")
+        ) : (
+          t("publish")
+        )}
       </Button>
 
       <ConfirmModal onConfirm={onDelete}>

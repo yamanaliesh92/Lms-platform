@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 import { Attachment, Course } from "@prisma/client";
 import FileUpload from "./file-uplaod";
+import { useTranslations } from "next-intl";
 
 interface IImageFormProps {
   initialData: Course & { attachments: Attachment[] };
@@ -25,8 +26,10 @@ export default function AttachmentForm({
   courseId,
 }: IImageFormProps) {
   const router = useRouter();
+  const t = useTranslations("Attachment");
   const [isEditing, setIsEditing] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggle = () => {
     setIsEditing((prev) => !prev);
@@ -34,13 +37,10 @@ export default function AttachmentForm({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(
-        `http://localhost:3000/api/courses/${courseId}/attachments`,
-        values
-      );
+      await axios.post(`/api/courses/${courseId}/attachments`, values);
       toggle();
       router.refresh();
-      toast.success("updated success");
+      toast.success("Updated success");
     } catch (err) {
       toast.error("Something went wrong");
     }
@@ -49,28 +49,28 @@ export default function AttachmentForm({
   const onDelete = async (id: string) => {
     try {
       setDeletingId(id);
-
-      const res = await axios.delete(
-        `http://localhost:3000/api/courses/${courseId}/attachments/${id}`
-      );
+      setIsLoading(true);
+      await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
+      setIsLoading(false);
       toast.success("Attachment deleted");
       router.refresh();
     } catch {
       toast.error("Something went wrong");
     } finally {
       setDeletingId(null);
+      setIsLoading(false);
     }
   };
   return (
     <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
-        Course attachment
+        {t("name")}
         <Button onClick={toggle} variant={"ghost"}>
-          {isEditing && <>Cancel</>}
+          {isEditing && <>{t("cancel")}</>}
           {!isEditing && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add an attachment
+              {t("add")}
             </>
           )}
         </Button>
@@ -79,7 +79,7 @@ export default function AttachmentForm({
         <>
           {initialData.attachments.length === 0 && (
             <p className="text-sm mt-2 text-slate-500 italic">
-              No attachments yet{" "}
+              {t("noResult")}
             </p>
           )}
           {initialData.attachments.length > 0 && (
@@ -121,9 +121,7 @@ export default function AttachmentForm({
               }
             }}
           />
-          <div className="text-xs text-muted-foreground mt-4 ">
-            Add anything your students might need to complete the course
-          </div>
+          <div className="text-xs text-muted-foreground mt-4 ">{t("help")}</div>
         </div>
       )}
     </div>

@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { Course } from "@prisma/client";
 import Image from "next/image";
 import FileUpload from "./file-uplaod";
+import { useTranslations } from "next-intl";
 
 interface IImageFormProps {
   initialData: Course;
@@ -23,6 +24,7 @@ const formSchema = z.object({
 
 export default function ImageForm({ initialData, id }: IImageFormProps) {
   const router = useRouter();
+  const t = useTranslations("Image");
   const [isEditing, setIsEditing] = useState(false);
 
   const toggle = () => {
@@ -42,19 +44,19 @@ export default function ImageForm({ initialData, id }: IImageFormProps) {
   return (
     <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
-        Course image
+        {t("name")}
         <Button onClick={toggle} variant={"ghost"}>
-          {isEditing && <>Cancel</>}
+          {isEditing && <>{t("cancel")}</>}
           {!isEditing && !initialData.imgUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add an image
+              {t("add")}
             </>
           )}
           {!isEditing && initialData.imgUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit image
+              {t("edit")}
             </>
           )}
         </Button>

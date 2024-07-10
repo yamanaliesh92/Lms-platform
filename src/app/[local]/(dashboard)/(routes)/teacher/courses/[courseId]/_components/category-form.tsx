@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  FormDescription,
   FormControl,
   FormField,
   FormMessage,
@@ -20,6 +21,7 @@ import { useRouter } from "next/navigation";
 
 import { Combobox } from "@/components/ui/combobox";
 import { Course } from "@prisma/client";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   initialData: Course;
@@ -33,14 +35,17 @@ const formSchema = z.object({
 
 export default function CategoryForm({ initialData, id, options }: IProps) {
   const router = useRouter();
+  const t = useTranslations("Category");
+
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       categoryId: initialData?.categoryId || "",
     },
   });
-  //   extract isSubmitting and isValid
+
   const { isSubmitting, isValid } = from.formState;
 
   const toggle = () => {
@@ -48,15 +53,17 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
-      await axios.patch(`http://localhost:3000/api/courses/${id}`, values);
+      setIsLoading(true);
+      await axios.patch(`/api/courses/${id}`, values);
+      setIsLoading(false);
       toggle();
       router.refresh();
       toast.success("updated success");
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error("some thing went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,16 +71,16 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
     (option) => option.value === initialData.categoryId
   );
   return (
-    <div className="mt-4 border bg-slate-100 dark:bg-background  rounded-md p-2">
+    <div className="mt-4 border bg-slate-100 rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
-        Course Category
+        {t("name")}
         <Button onClick={toggle} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>{t("cancel")}</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Category
+              {t("edit")}
             </>
           )}
         </Button>
@@ -84,7 +91,7 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
             !initialData.categoryId && "text-slate-500 italic"
           }  `}
         >
-          {selectOption?.label || "No category"}
+          {selectOption?.label || t("noResult")}
         </p>
       )}
       {isEditing && (
@@ -108,7 +115,16 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
             />
             <div className="flex items-center gap-x-2">
               <Button type={"submit"} disabled={!isValid || isSubmitting}>
-                Save
+                {isLoading ? (
+                  <ClipLoader
+                    color={"gray"}
+                    loading={isLoading}
+                    size={18}
+                    aria-label="Loading Spinner"
+                  />
+                ) : (
+                  t("save")
+                )}
               </Button>
             </div>
           </form>

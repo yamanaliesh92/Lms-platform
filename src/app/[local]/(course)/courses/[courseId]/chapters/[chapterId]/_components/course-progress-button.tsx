@@ -29,7 +29,7 @@ export default function CourseProgressButton({
     try {
       setIsLoading(true);
       await axios.put(
-        `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}/progress`,
+        `/api/courses/${courseId}/chapters/${chapterId}/progress`,
         { isCompleted: !isCompleted }
       );
       if (!isCompleted && !nextChapter) {

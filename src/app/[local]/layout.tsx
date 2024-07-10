@@ -24,8 +24,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
-          <ClerkProvider>
+        <ClerkProvider>
+          <NextIntlClientProvider messages={messages}>
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
@@ -36,8 +36,8 @@ export default async function RootLayout({
               <ConfettiProvider />
               {children}
             </ThemeProvider>
-          </ClerkProvider>
-        </NextIntlClientProvider>
+          </NextIntlClientProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

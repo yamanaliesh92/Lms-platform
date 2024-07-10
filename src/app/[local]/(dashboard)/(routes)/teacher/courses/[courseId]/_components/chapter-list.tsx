@@ -7,7 +7,8 @@ import {
   Draggable,
   DropResult,
 } from "@hello-pangea/dnd";
-import { Badge, Grip, Pencil } from "lucide-react";
+import { Grip, Pencil } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface IChaptersListProps {
   items: Chapter[];
@@ -22,6 +23,8 @@ export default function ChaptersList({
 }: IChaptersListProps) {
   const [isMounted, setIsMounted] = useState(false);
   const [chapters, setChapters] = useState(items);
+
+  const t = useTranslations("PublishPage");
 
   useEffect(() => {
     setChapters(items);
@@ -84,13 +87,13 @@ export default function ChaptersList({
                     </div>
                     {chapter.title}
                     <div className="ml-auto gap-x-2 flex items-center">
-                      {chapter.isFree && <h1>Free</h1>}
+                      {chapter.isFree && <h1>{t("free")}</h1>}
                       <h1
                         className={`bg-slate-500 cursor-pointer rounded-md p-1 ${
                           chapter.isPublished && "bg-sky-700"
                         }`}
                       >
-                        {chapter.isPublished ? "published" : "Draft"}
+                        {chapter.isPublished ? t("publish") : t("draft")}
                       </h1>
 
                       <Pencil

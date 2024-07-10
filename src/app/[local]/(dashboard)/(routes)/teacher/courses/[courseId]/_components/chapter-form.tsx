@@ -21,6 +21,8 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Chapter, Course } from "@prisma/client";
 import ChaptersList from "./chapter-list";
+import { useTranslations } from "next-intl";
+import { ClipLoader } from "react-spinners";
 
 interface IProps {
   initialData: Course & { chapters: Chapter[] };
@@ -33,9 +35,10 @@ const formSchema = z.object({
 
 export default function ChapterForm({ initialData, courserId }: IProps) {
   const router = useRouter();
+  const t = useTranslations("Chapter");
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,31 +54,29 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(
-        `http://localhost:3000/api/courses/${courserId}/chapters`,
-        values
-      );
+      setIsLoading(true);
+      await axios.post(`/api/courses/${courserId}/chapters`, values);
+      setIsLoading(false);
       toggleCreating();
       router.refresh();
-      toast.success("chapter created");
+      toast.success("Chapter created");
     } catch (err) {
       toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const onReorder = async (updateData: { id: string; position: number }[]) => {
     try {
       setIsUpdating(true);
-      await axios.put(
-        `http://localhost:3000/api/courses/${courserId}/chapters/reorder`,
-        {
-          list: updateData,
-        }
-      );
+      await axios.put(`/api/courses/${courserId}/chapters/reorder`, {
+        list: updateData,
+      });
       toast.success("Chapters reordered");
       router.refresh();
     } catch (err) {
-      toast.error(" thing went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsUpdating(false);
     }
@@ -92,14 +93,14 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Course Chapter
+        {t("name")}
         <Button onClick={toggleCreating} variant={"ghost"}>
           {isCreating ? (
-            <>Cancel</>
+            <>{t("cancel")}</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add a chapter
+              {t("add")}
             </>
           )}
         </Button>
@@ -130,18 +131,25 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
             />
 
             <Button type={"submit"} disabled={!isValid || isSubmitting}>
-              create
+              {isLoading ? (
+                <ClipLoader
+                  color={"gray"}
+                  loading={isLoading}
+                  size={18}
+                  aria-label="Loading Spinner"
+                />
+              ) : (
+                t("create")
+              )}
             </Button>
           </form>
         </Form>
       )}
       {!isCreating && (
-        <div
-          className={`text-sm mt-2 ${
-            !initialData.chapters.length && "text-slate-500 ita"
-          } `}
-        >
-          No chapters
+        <div className={"text-sm mt-2 "}>
+          {!initialData.chapters.length && (
+            <div className="text-slate-400">{t("noResult")} </div>
+          )}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onReorder}
@@ -150,9 +158,7 @@ export default function ChapterForm({ initialData, courserId }: IProps) {
         </div>
       )}
       {!isCreating && (
-        <p className="text-xs text-muted-foreground mt-4">
-          Drag and drop to reorder the chapter
-        </p>
+        <p className="text-xs text-muted-foreground mt-4">{t("drag")}</p>
       )}
     </div>
   );

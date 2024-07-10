@@ -11,12 +11,12 @@ interface ISidebarItem {
 }
 export default function SidebarItem({ icon: Icon, label, href }: ISidebarItem) {
   const pathname = usePathname();
-  const router = useRouter();
 
+  const router = useRouter();
   const isActive =
-    (pathname === "/" && href === "/") ||
-    pathname === href ||
-    pathname.startsWith(`${href}/`);
+    (pathname.length == 3 && pathname.charAt(0) === "/" && href === "/") ||
+    pathname.substring(3) === href ||
+    pathname.includes(`/${href}/`);
 
   const click = () => {
     router.push(href);
@@ -27,7 +27,7 @@ export default function SidebarItem({ icon: Icon, label, href }: ISidebarItem) {
       onClick={click}
       className={` ${
         isActive
-          ? "text-sky-700 bg-sky-200/20 hover:bg-sky-200/20 hover:text-sky-700"
+          ? "text-sky-700 bg-sky-500/20 hover:bg-sky-200/20 hover:text-sky-700"
           : ""
       } flex items-center gap-x-2 text-slate-500 pl-6 font-[500] transition-all hover:text-slate-600 hover:bg-slate-300/20`}
     >

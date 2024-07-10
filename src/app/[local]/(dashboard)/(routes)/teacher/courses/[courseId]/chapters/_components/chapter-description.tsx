@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { Chapter } from "@prisma/client";
 import Editor from "@/components/ui/editior";
 import Preview from "@/components/Preview";
+import { ClipLoader } from "react-spinners";
 
 interface IProps {
   initialData: Chapter;
@@ -40,6 +41,7 @@ export default function ChapterDescriptionForm({
 }: IProps) {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,15 +57,19 @@ export default function ChapterDescriptionForm({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await axios.patch(
-        `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}`,
+      setIsLoading(true);
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
         values
       );
       toggle();
+      setIsLoading(false);
       router.refresh();
       toast.success("updated success");
     } catch (err) {
       toast.error(" thing went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -114,7 +120,16 @@ export default function ChapterDescriptionForm({
             />
             <div className="flex items-center gap-x-2">
               <Button type={"submit"} disabled={!isValid || isSubmitting}>
-                Save
+                {isLoading ? (
+                  <ClipLoader
+                    color={"gray"}
+                    loading={isLoading}
+                    size={18}
+                    aria-label="Loading Spinner"
+                  />
+                ) : (
+                  "Save"
+                )}
               </Button>
             </div>
           </form>

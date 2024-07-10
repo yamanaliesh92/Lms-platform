@@ -19,15 +19,17 @@ import PriceForm from "./_components/price-form";
 import { IconBadge } from "@/app/[local]/(dashboard)/_components/icon-badge";
 import FormTitle from "./_components/title-form";
 import { Banner } from "@/app/[local]/(dashboard)/_components/banner";
+import { getTranslations } from "next-intl/server";
 
-interface Ix {
+interface IProps {
   params: {
     courseId: string;
   };
 }
 
-export default async function page({ params }: Ix) {
+export default async function page({ params }: IProps) {
   const { userId } = auth();
+  const t = await getTranslations("CoursePage");
   if (!userId) {
     redirect("/");
   }
@@ -69,10 +71,9 @@ export default async function page({ params }: Ix) {
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
-            <h1 className="text-2xl font-medium">Course setup</h1>
+            <h1 className="text-2xl font-medium">{t("setup")}</h1>
             <span className="text-sm text-slate-700">
-              {" "}
-              Complete all fields {completionFields}
+              {t("complete")} {completionFields}
             </span>
           </div>
 
@@ -86,7 +87,7 @@ export default async function page({ params }: Ix) {
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
-              <h2 className="text-xl">Customize your course</h2>
+              <h2 className="text-xl">{t("customize")}</h2>
             </div>
             <FormTitle initialData={course} id={course.id} />
 
@@ -107,19 +108,19 @@ export default async function page({ params }: Ix) {
             <div>
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={ListChecks} />
-                <h2 className="text-xl">Course Chapter</h2>
+                <h2 className="text-xl">{t("chapter")}</h2>
               </div>
               <ChapterForm initialData={course} courserId={course.id} />
             </div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={CircleDollarSign} />
-              <h2 className="text-xl">Sell your course</h2>
+              <h2 className="text-xl">{t("sell")}</h2>
             </div>
             <PriceForm initialData={course} id={course.id} />
 
             <div className="flex items-center gap-x-2">
               <IconBadge icon={File} />
-              <h2 className="text-xl">Resource & Attachments </h2>
+              <h2 className="text-xl">{t("resource")}</h2>
             </div>
             <AttachmentForm initialData={course} courseId={course.id} />
           </div>

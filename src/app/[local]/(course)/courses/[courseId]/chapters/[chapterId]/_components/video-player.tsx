@@ -33,7 +33,7 @@ export default function VideoPlayer({
   const onEnd = async () => {
     try {
       await axios.put(
-        `http://localhost:3000/api/courses/${courseId}/chapters/${chapterId}/progress`,
+        `/api/courses/${courseId}/chapters/${chapterId}/progress`,
         { isCompleted: true }
       );
       if (!nextChapter) {
@@ -45,7 +45,7 @@ export default function VideoPlayer({
         router.push(`/courses/${courseId}/chapters/${nextChapter}`);
       }
     } catch {
-      toast.error("Something error ");
+      toast.error("Something went error ");
     }
   };
   return (

@@ -18,6 +18,9 @@ import { Pencil } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { fail } from "assert";
+import { ClipLoader } from "react-spinners";
+import { useTranslations } from "next-intl";
 interface IProps {
   initialData: {
     title: string;
@@ -26,14 +29,17 @@ interface IProps {
 }
 
 const formSchema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
+  title: z.string().min(1, { message: "Title Course is required" }),
 });
 
 export default function FormTitle({ initialData, id }: IProps) {
   const router = useRouter();
+  const t = useTranslations("Title");
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const from = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "all",
     defaultValues: initialData,
   });
 
@@ -44,28 +50,30 @@ export default function FormTitle({ initialData, id }: IProps) {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
-
     try {
-      await axios.patch(`http://localhost:3000/api/courses/${id}`, values);
+      setIsLoading(true);
+      await axios.patch(`/api/courses/${id}`, values);
+      setIsLoading(false);
       toggle();
       router.refresh();
       toast.success("updated success");
     } catch (err) {
       toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <div className="mt-4 border bg-slate-100 dark:bg-background rounded-md p-2">
       <div className="font-medium flex items-center justify-between">
-        Course Title
+        {t("name")}
         <Button onClick={toggle} variant={"ghost"}>
           {isEditing ? (
-            <>Cancel</>
+            <>{t("cancel")}</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Title
+              {t("edit")}
             </>
           )}
         </Button>
@@ -96,7 +104,16 @@ export default function FormTitle({ initialData, id }: IProps) {
             />
             <div className="flex items-center gap-x-2">
               <Button type={"submit"} disabled={!isValid || isSubmitting}>
-                Save
+                {isLoading ? (
+                  <ClipLoader
+                    color={"gray"}
+                    loading={isLoading}
+                    size={18}
+                    aria-label="Loading Spinner"
+                  />
+                ) : (
+                  t("save")
+                )}
               </Button>
             </div>
           </form>

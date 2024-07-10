@@ -11,6 +11,7 @@ import {
 import { Course } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
+
 import Link from "next/link";
 
 export const columns: ColumnDef<Course>[] = [
@@ -41,7 +42,6 @@ export const columns: ColumnDef<Course>[] = [
       );
     },
     cell: ({ row }) => {
-      // format the price to $
       const price = parseFloat(row.getValue("price") || "0");
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -88,7 +88,6 @@ export const columns: ColumnDef<Course>[] = [
             <Link href={`/teacher/courses/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
-                Edit
               </DropdownMenuItem>
             </Link>
           </DropdownMenuContent>
