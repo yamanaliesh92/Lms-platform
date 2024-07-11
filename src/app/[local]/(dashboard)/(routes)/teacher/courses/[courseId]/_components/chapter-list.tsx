@@ -89,7 +89,7 @@ export default function ChaptersList({
                     <div className="ml-auto gap-x-2 flex items-center">
                       {chapter.isFree && <h1>{t("free")}</h1>}
                       <h1
-                        className={`bg-slate-500 cursor-pointer rounded-md p-1 ${
+                        className={`bg-slate-500 text-white cursor-pointer rounded-md p-1 ${
                           chapter.isPublished && "bg-sky-700"
                         }`}
                       >

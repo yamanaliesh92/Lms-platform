@@ -38,12 +38,18 @@ export default function VideoPlayer({
       );
       if (!nextChapter) {
         confetti.onOpen();
+        router.push("/en/search");
+        toast.success("Congratulations you finished this course", {
+          duration: 3000,
+        });
       }
-      toast.success("Progress updated");
-      router.refresh();
+
       if (nextChapter) {
         router.push(`/courses/${courseId}/chapters/${nextChapter}`);
+        toast.success("Progress updated");
       }
+
+      router.refresh();
     } catch {
       toast.error("Something went error ");
     }

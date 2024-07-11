@@ -47,7 +47,7 @@ export default function page() {
 
       router.push(`/teacher/courses/${res.data.id}`);
       setIsLoading(false);
-      toast.success("created success");
+      toast.success("Created success");
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
@@ -85,7 +85,7 @@ export default function page() {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href={"/"}>
+              <Link href={"/en/teacher/courses"}>
                 <Button variant={"ghost"} type="button">
                   {t("cancel")}
                 </Button>

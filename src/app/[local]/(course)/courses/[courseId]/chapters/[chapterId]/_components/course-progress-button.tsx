@@ -35,11 +35,16 @@ export default function CourseProgressButton({
       );
       if (!isCompleted && !nextChapter) {
         confetti.onOpen();
+        router.push("/en/search");
+        toast.success("Congratulations you finished this course", {
+          duration: 3000,
+        });
       }
       if (!isCompleted && nextChapter) {
         router.push(`/courses/${courseId}/chapters/${nextChapter}`);
+        toast.success("Progress updated");
       }
-      toast.success("Progress updated");
+
       router.refresh();
     } catch {
       toast.error("Something went wrong");

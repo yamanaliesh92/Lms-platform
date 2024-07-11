@@ -25,7 +25,7 @@ export async function PATCH(
       },
     });
     if (!course) {
-      return NextResponse.json("not found", { status: 404 });
+      return NextResponse.json("Not found", { status: 404 });
     }
 
     const hasPublishedChapter = course.chapters.some(
@@ -48,6 +48,6 @@ export async function PATCH(
     return NextResponse.json(publishedCourse);
   } catch (err) {
     console.log("error in published chapter", err);
-    return NextResponse.json("some thing went wrong", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }

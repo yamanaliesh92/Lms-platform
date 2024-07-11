@@ -32,7 +32,7 @@ export async function POST(
     });
 
     if (purchase) {
-      return NextResponse.json("this course already purchase", { status: 400 });
+      return NextResponse.json("This course already purchase", { status: 400 });
     }
 
     if (!course) {
@@ -63,7 +63,7 @@ export async function POST(
       },
       create: {
         stripeCustomerId: customer.id,
-        userId: "user_2iuayzQVpZFp5ZPllGsGY25zTIm",
+        userId,
       },
       update: { updatedAt: new Date() },
       select: { stripeCustomerId: true },
@@ -83,6 +83,6 @@ export async function POST(
     return NextResponse.json({ url: session.url });
   } catch (err) {
     console.log("[Error_ID_CHECKOUT]", err);
-    return NextResponse.json("internal server error", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }

@@ -19,7 +19,7 @@ interface IImageFormProps {
 }
 
 const formSchema = z.object({
-  imgUrl: z.string().min(1, { message: "Image is required" }),
+  imgUrl: z.string().min(1, { message: "Course image is required" }),
 });
 
 export default function ImageForm({ initialData, id }: IImageFormProps) {
@@ -33,10 +33,10 @@ export default function ImageForm({ initialData, id }: IImageFormProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`http://localhost:3000/api/courses/${id}`, values);
+      await axios.patch(`/api/courses/${id}`, values);
       toggle();
       router.refresh();
-      toast.success("updated success");
+      toast.success("Updated success");
     } catch (err) {
       toast.error("Something went wrong");
     }

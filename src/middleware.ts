@@ -2,15 +2,12 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 import createIntlMiddleware from "next-intl/middleware";
 
-const locales = ["en", "ar"];
+const locales = ["en", "it"];
 
-// const isProtectedRoute = createRouteMatcher([
-//   "/:locale/teacher",
-//   // "/:locale/search",
-// ]);
 const isPublicRoute = createRouteMatcher([
   "/:locale/sign-in",
   "/:locale/sign-up",
+  "/api/webhook",
   "/api/uploadthing",
 ]);
 const intlMiddleware = createIntlMiddleware({
@@ -31,21 +28,6 @@ export default clerkMiddleware((auth, request) => {
   return response;
 });
 
-// export default function middleware((auth,req: NextRequest) {
-//   if (!isPublicRoute(req)) {
-//     auth().protect({});
-//   }
-
-//   if (req.nextUrl.pathname.includes("/api")) {
-//     return;
-//   }
-
-//   const response = intlMiddleware(req);
-
-//   return response;
-// }
-
 export const config = {
-  // matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };

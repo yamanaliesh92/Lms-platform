@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import {
+  ArrowLeft,
   CircleDollarSign,
   File,
   LayoutDashboard,
@@ -20,6 +21,7 @@ import { IconBadge } from "@/app/[local]/(dashboard)/_components/icon-badge";
 import FormTitle from "./_components/title-form";
 import { Banner } from "@/app/[local]/(dashboard)/_components/banner";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 
 interface IProps {
   params: {
@@ -66,11 +68,18 @@ export default async function page({ params }: IProps) {
     <>
       {!isCompleted ||
         (!course.isPublished && (
-          <Banner label="this course is not publish ,It will not be visible to the student" />
+          <Banner label="This course is not publish ,It will not be visible to the student" />
         ))}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
+            <Link
+              href={"/teacher/courses"}
+              className="flex items-center text-sm hover:opacity-75 transition mb-6"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2 " />
+              {t("back")}
+            </Link>
             <h1 className="text-2xl font-medium">{t("setup")}</h1>
             <span className="text-sm text-slate-700">
               {t("complete")} {completionFields}

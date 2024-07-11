@@ -21,7 +21,7 @@ export async function PUT(
       where: { userId, id: courseId },
     });
     if (!courseOwner) {
-      return NextResponse.json("something went wrong", { status: 500 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
 
     for (let item of list) {

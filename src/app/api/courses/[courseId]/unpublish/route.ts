@@ -17,7 +17,7 @@ export async function PATCH(
       where: { id: courseId },
     });
     if (!course) {
-      return NextResponse.json("not found", { status: 404 });
+      return NextResponse.json("Not found", { status: 404 });
     }
 
     const unPublishedCourse = await db.course.update({

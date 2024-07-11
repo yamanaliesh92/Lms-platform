@@ -115,7 +115,6 @@ export default function ChapterDescriptionForm({
                   <FormControl>
                     <Editor {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}

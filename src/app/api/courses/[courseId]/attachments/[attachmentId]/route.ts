@@ -20,7 +20,7 @@ export async function DELETE(
     });
 
     if (!courseOwner) {
-      return NextResponse.json("Unauthorized", { status: 401 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
     const attachment = await db.attachment.delete({
       where: { courseId, id: attachmentId },
@@ -29,6 +29,6 @@ export async function DELETE(
   } catch (err) {
     console.log("[COURSE_ID_ATTACHMENTS]", err);
 
-    return NextResponse.json("something went wrong", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }

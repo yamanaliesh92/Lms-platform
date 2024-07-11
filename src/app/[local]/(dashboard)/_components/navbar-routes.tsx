@@ -40,9 +40,10 @@ export default function NavbarRoutes() {
             </Button>
           </Link>
         )}
-        <UserButton afterSignOutUrl="/" />
-        <ThemeToggle />
+
         <LocalSwitcher />
+        <ThemeToggle />
+        <UserButton afterSignOutUrl="/en/sign-in" />
       </div>
     </>
   );

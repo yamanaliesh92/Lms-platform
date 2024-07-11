@@ -19,7 +19,7 @@ export async function POST(
       where: { id: courseId, userId },
     });
     if (!courseOwner) {
-      return NextResponse.json("Unauthorized", { status: 401 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
 
     const attachment = await db.attachment.create({

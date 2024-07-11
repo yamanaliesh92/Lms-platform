@@ -1,36 +1,38 @@
 "use client";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
-import React, { ChangeEvent, useTransition } from "react";
+import { loadavg } from "os";
 
 export default function LocalSwitcher() {
-  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const locate = useLocale();
   const pathName = usePathname();
 
-  const x = pathName.substring(3);
-
-  const onSleetChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const nextLocate = e.target.value;
-
-    startTransition(() => {
-      router.push(`/${nextLocate}/${x}`);
-    });
+  const newPathname = pathName.substring(3);
+  const handleLanguageChange = (value: string) => {
+    router.push(`/${value}/${newPathname}`);
   };
+
+  const selectedLanguage = locate === "en" ? "English" : "Italian";
+
   return (
-    <label className="border-2 rounded-md">
-      <p className="sr-only">Change language</p>
-      <select
-        defaultValue={locate}
-        className="bg-transparent py-2 "
-        onChange={onSleetChange}
-        disabled={isPending}
-      >
-        <option value={"en"}>English</option>
-        <option value={"ar"}>Arabic</option>
-      </select>
-    </label>
+    <Select onValueChange={handleLanguageChange}>
+      <SelectTrigger className="w-[100px]">
+        <SelectValue placeholder={selectedLanguage} />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="en">English</SelectItem>
+        <SelectItem value="it">Italian</SelectItem>
+      </SelectContent>
+    </Select>
   );
 }

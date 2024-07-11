@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { Combobox } from "@/components/ui/combobox";
 import { Course } from "@prisma/client";
 import { useTranslations } from "next-intl";
+import { ClipLoader } from "react-spinners";
 
 interface IProps {
   initialData: Course;
@@ -59,9 +60,9 @@ export default function CategoryForm({ initialData, id, options }: IProps) {
       setIsLoading(false);
       toggle();
       router.refresh();
-      toast.success("updated success");
+      toast.success("Updated success");
     } catch (err) {
-      toast.error("some thing went wrong");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }

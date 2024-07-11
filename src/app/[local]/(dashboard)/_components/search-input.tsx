@@ -40,7 +40,7 @@ export default function SearchInput() {
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200"
+        className="w-full md:w-[300px]  dark:text-black pl-9 rounded-full bg-slate-100 focus-visible:ring-slate-200"
         placeholder={t("placeholder")}
       />
     </div>

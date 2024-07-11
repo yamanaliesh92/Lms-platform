@@ -25,9 +25,9 @@ export async function PATCH(
       where: { id: courseId, userId },
     });
     if (!ownerCourse) {
-      return NextResponse.json("Unauthorized", { status: 401 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
-    console.log("values", values);
+
     const chapter = await db.chapter.update({
       where: { id: params.chapterId, courseId: params.courseId },
       data: { ...values },
@@ -59,7 +59,7 @@ export async function PATCH(
     }
     return NextResponse.json(chapter);
   } catch (err) {
-    return NextResponse.json("soem thing wmetn", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }
 
@@ -79,7 +79,7 @@ export async function DELETE(
       where: { id: courseId, userId },
     });
     if (!ownerCourse) {
-      return NextResponse.json("Unauthorized", { status: 401 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
 
     const chapter = await db.chapter.findUnique({
@@ -87,7 +87,7 @@ export async function DELETE(
     });
 
     if (!chapter) {
-      return NextResponse.json("chapter is not found", { status: 404 });
+      return NextResponse.json("Chapter is not found", { status: 404 });
     }
 
     if (chapter.videoUrl) {
@@ -120,6 +120,6 @@ export async function DELETE(
 
     return NextResponse.json(deleteChapter);
   } catch (err) {
-    return NextResponse.json("something went wrong ", { status: 500 });
+    return NextResponse.json("Something went wrong ", { status: 500 });
   }
 }

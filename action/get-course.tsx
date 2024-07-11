@@ -4,7 +4,7 @@ import { getProgress } from "./get-progress";
 
 type CourseWithProgressWithCategory = Course & {
   category: Category | null;
-  chapter: { id: string }[];
+  chapters: { id: string }[];
   progress: number | null;
 };
 
@@ -40,7 +40,7 @@ export const getCourses = async ({
       },
       orderBy: { createdAt: "desc" },
     });
-    const coursesWithProgress: any[] = await Promise.all(
+    const coursesWithProgress = await Promise.all(
       courses.map(async (course) => {
         if (course.purchases.length === 0) {
           return {

@@ -36,7 +36,7 @@ export default async function layout({
   const progressCount = await getProgress(userId, course.id);
   return (
     <div className="h-full">
-      <div className="h-[80px] md:pl-80 fixed inset-y-0 z-50 w-full">
+      <div className="h-[80px] md:pl-80 bg-white dark:bg-background fixed inset-y-0 z-50 w-full">
         <CourseNavbar course={course} progressCount={progressCount} />
       </div>
       <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">

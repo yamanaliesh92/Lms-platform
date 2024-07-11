@@ -27,7 +27,7 @@ export default function CourseProgress({
       <Progress variant={variant} className="h-2" value={value} />
       <p
         className={cn(
-          "font-medium text-sky-700 mt-2",
+          "font-medium text-sky-700 mt-2 my-3",
           colorByVariant[variant || "default"],
           sizeByVariant[size || "default"]
         )}

@@ -17,7 +17,7 @@ export async function PATCH(
       where: { id: courseId, userId },
     });
     if (!ownerChapter) {
-      return NextResponse.json("Unauthorized", { status: 401 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
 
     const chapter = await db.chapter.findUnique({
@@ -45,6 +45,6 @@ export async function PATCH(
     return NextResponse.json(publishChapter);
   } catch (err) {
     console.log("error in publish", err);
-    return NextResponse.json("internal server error", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }

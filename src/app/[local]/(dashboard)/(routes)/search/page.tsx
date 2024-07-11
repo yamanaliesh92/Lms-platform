@@ -17,8 +17,6 @@ export default async function page({ searchParams }: SearchPageProps) {
     return redirect("/");
   }
 
-  console.log("use", userId);
-
   const categories = await db.category.findMany({ orderBy: { name: "asc" } });
 
   const { title, categoryId } = searchParams;

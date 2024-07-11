@@ -32,7 +32,7 @@ export async function POST(
       where: { userId, id: courseId },
     });
     if (!courseOwner) {
-      return NextResponse.json("Something went wrong", { status: 500 });
+      return NextResponse.json("Forbidden", { status: 403 });
     }
     const lastChapter = await db.chapter.findFirst({
       where: { courseId: courseId },
@@ -50,6 +50,6 @@ export async function POST(
   } catch (err) {
     console.log("[course]", err);
 
-    return NextResponse.json("something went wrong", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }

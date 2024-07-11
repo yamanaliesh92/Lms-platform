@@ -25,14 +25,14 @@
   "CreateCourse": {
     "continue": "Continue",
     "name": "Name Your course",
-    "subName": "what would you like to name your course ? Dont worry",
+    "subName": "What would you like to name your course ? Dont worry",
     "title": "Course Title",
     "cancel": "Cancel",
-    "description": "what will you teach in this course"
+    "description": "What will you teach in this course"
   },
   "Course": {
     "new": "New Course",
-    "placeholder": "Filter course...",
+    "placeholder": "Filter Course...",
     "next": "Next",
     "previous": "Previous",
     "noResult": "No result.."
@@ -113,6 +113,7 @@
   "CoursePage": {
     "chapter": "Course Chapter",
     "setup": "Course Setup",
+    "back": "Back step",
     "complete": "Complete all fields",
     "customize": "Customize Your Course",
     "sell": "Sell your course",

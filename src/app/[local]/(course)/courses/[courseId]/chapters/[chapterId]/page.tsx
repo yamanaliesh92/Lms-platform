@@ -48,14 +48,14 @@ export default async function page({
       {userProgress?.isCompleted && (
         <Banner
           variant={"success"}
-          label="you already completed this chapter."
+          label="You already completed this chapter."
         />
       )}
 
       {isLocked && (
         <Banner
           variant={"warning"}
-          label="you need to purchase this course to watch this chapter."
+          label="You need to purchase this course to watch this chapter."
         />
       )}
       <div className="flex flex-col max-w-4xl pb-20 mx-auto">

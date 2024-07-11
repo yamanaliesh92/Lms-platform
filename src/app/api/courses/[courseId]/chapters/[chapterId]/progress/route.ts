@@ -30,6 +30,6 @@ export async function PUT(
     return NextResponse.json(userProgress);
   } catch (err) {
     console.log("error in progress", err);
-    return NextResponse.json("internal server error", { status: 500 });
+    return NextResponse.json("Something went wrong", { status: 500 });
   }
 }
